@@ -45,34 +45,43 @@ module.exports = {
         argsIgnorePattern: '^_.*?$',
       },
     ],
-    'import/order': [
-      'error',
-      {
-        groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [
-          {
-            pattern: '~/**',
-            group: 'external',
-            position: 'after',
-          },
-        ],
-        'newlines-between': 'always',
-      },
-    ],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
+    //     pathGroups: [
+    //       {
+    //         pattern: '~/**',
+    //         group: 'external',
+    //         position: 'after',
+    //       },
+    //     ],
+    //     'newlines-between': 'always',
+    //   },
+    // ],
     'react/self-closing-comp': 'warn',
-    'padding-line-between-statements': [
-      'error',
-      { blankLine: 'always', prev: '*', next: ['return', 'export'] },
-      {
-        blankLine: 'always',
-        prev: ['const', 'let', 'var'],
-        next: '*',
-      },
-      {
-        blankLine: 'any',
-        prev: ['const', 'let', 'var'],
-        next: ['const', 'let', 'var'],
-      },
-    ],
+    // 'react/jsx-sort-props': [
+    //   'error',
+    //   {
+    //     callbacksLast: true,
+    //     shorthandFirst: true,
+    //     noSortAlphabetically: false,
+    //     reservedFirst: true,
+    //   },
+    // ],
+    // 'padding-line-between-statements': [
+    //   'error',
+    //   { blankLine: 'always', prev: '*', next: ['return', 'export'] },
+    //   {
+    //     blankLine: 'always',
+    //     prev: ['const', 'let', 'var'],
+    //     next: '*',
+    //   },
+    //   {
+    //     blankLine: 'any',
+    //     prev: ['const', 'let', 'var'],
+    //     next: ['const', 'let', 'var'],
+    //   },
+    // ],
   },
 };
