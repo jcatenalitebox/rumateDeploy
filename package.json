@@ -36,6 +36,7 @@
     "globals": "^15.2.0",
     "prettier": "3.2.5",
     "typescript": "^5",
+    "react-hook-form": "7.45.0",
     "typescript-eslint": "^7.8.0",
     "lodash": "^4.17.21",
     "framer-motion": "^10.2.3",
