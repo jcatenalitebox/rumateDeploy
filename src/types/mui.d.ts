@@ -8,6 +8,8 @@ declare module '@mui/material/styles/createPalette' {
       main: string;
       hover: string;
       focus: string;
+      backgroundSecondaryHover: string;
+      backgroundSecondaryFocus: string;
     };
     secondary: {
       backgroundHover: string;

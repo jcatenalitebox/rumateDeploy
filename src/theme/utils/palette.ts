@@ -5,10 +5,8 @@ export default {
     main: '#323BFF',
     hover: '#2E36EB',
     focus: '#2A32D6',
-  },
-  secondary: {
-    backgroundHover: '#EFEFFF',
-    backgroundFocus: '#E6E7FF',
+    backgroundSecondaryHover: '#EFEFFF',
+    backgroundSecondaryFocus: '#E6E7FF',
   },
   customText: {
     primary: '#2A333C',
