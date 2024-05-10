@@ -27,7 +27,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        printWidth: 100,
+        printWidth: 120,
         trailingComma: 'all',
         tabWidth: 2,
         semi: true,
@@ -72,7 +72,11 @@ module.exports = {
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: ['return', 'export'] },
-      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      {
+        blankLine: 'always',
+        prev: ['const', 'let', 'var'],
+        next: '*',
+      },
       {
         blankLine: 'any',
         prev: ['const', 'let', 'var'],
