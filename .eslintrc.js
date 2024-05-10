@@ -60,15 +60,6 @@ module.exports = {
       },
     ],
     'react/self-closing-comp': 'warn',
-    'react/jsx-sort-props': [
-      'error',
-      {
-        callbacksLast: true,
-        shorthandFirst: true,
-        noSortAlphabetically: false,
-        reservedFirst: true,
-      },
-    ],
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: ['return', 'export'] },
