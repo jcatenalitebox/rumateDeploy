@@ -3,6 +3,7 @@ import { Components, Theme } from '@mui/material';
 const MuiButton: Components<Omit<Theme, 'components'>>['MuiButton'] = {
   styleOverrides: {
     containedPrimary: (props) => ({
+      color: `${props.theme.palette.customColors.white}`,
       [props.theme.breakpoints.up('sm')]: {
         ':hover': {
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.3)',
@@ -39,7 +40,7 @@ const MuiButton: Components<Omit<Theme, 'components'>>['MuiButton'] = {
       maxHeight: '40px',
       [props.theme.breakpoints.up('sm')]: {
         ':hover': {
-          backgroundColor: `m${props.theme.palette.customButtons.secondary.backgroundHover}`,
+          backgroundColor: `${props.theme.palette.customButtons.secondary.backgroundHover}`,
         },
       },
     }),

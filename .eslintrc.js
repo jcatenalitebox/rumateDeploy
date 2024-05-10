@@ -45,20 +45,20 @@ module.exports = {
         argsIgnorePattern: '^_.*?$',
       },
     ],
-    'import/order': [
-      'error',
-      {
-        groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [
-          {
-            pattern: '~/**',
-            group: 'external',
-            position: 'after',
-          },
-        ],
-        'newlines-between': 'always',
-      },
-    ],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
+    //     pathGroups: [
+    //       {
+    //         pattern: '~/**',
+    //         group: 'external',
+    //         position: 'after',
+    //       },
+    //     ],
+    //     'newlines-between': 'always',
+    //   },
+    // ],
     'react/self-closing-comp': 'warn',
     'react/jsx-sort-props': [
       'error',
