@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import { Box, styled } from '@mui/material';
 
+import DummyLogin from '@/DummyLogin/DummyLogin';
+
+import { AuthContextProvider } from '../context/AuthContext';
+
 const StyledWrappe = styled(Box)`
-  background-color: blue;
+  background-color: white;
 `;
 
 export default function Home() {
@@ -14,7 +18,11 @@ export default function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <StyledWrappe>Blue team</StyledWrappe>
+      <StyledWrappe>
+        <AuthContextProvider>
+          <DummyLogin />
+        </AuthContextProvider>
+      </StyledWrappe>
     </>
   );
 }
