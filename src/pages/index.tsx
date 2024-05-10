@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { Box, styled } from '@mui/material';
 
 import DummyLogin from '@/DummyLogin/DummyLogin';
+import DummyRegister from '@/DummyLogin/DummyRegister';
 
 import { AuthContextProvider } from '../context/AuthContext';
 
@@ -21,6 +22,7 @@ export default function Home() {
       <StyledWrappe>
         <AuthContextProvider>
           <DummyLogin />
+          <DummyRegister />
         </AuthContextProvider>
       </StyledWrappe>
     </>

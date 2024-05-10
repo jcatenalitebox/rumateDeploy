@@ -29,7 +29,7 @@ const DummyLogin: React.FC = () => {
         const user = userCredential.user;
 
         dispatch({ type: 'LOGIN', payload: user });
-
+        setError('Logueado :P');
         router.push('/');
         // ...
       })
