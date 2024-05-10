@@ -17,9 +17,9 @@ import MuiListItemIcon from './components/MuiListItemIcon';
 import MuiList from './components/MuiList';
 import MuiSelect from './components/MuiSelect';
 
-// import { Maven_Pro } from 'next/font/google';
+import { Figtree } from 'next/font/google';
 
-// export const mavenPro = Maven_Pro({ preload: true, display: 'block', subsets: ['latin'] });
+export const figtree = Figtree({ preload: true, display: 'block', subsets: ['latin'] });
 
 const theme = createTheme({
   breakpoints: {
@@ -31,9 +31,9 @@ const theme = createTheme({
       xl: 2560,
     },
   },
-  // typography: {
-  //   fontFamily: mavenPro.style.fontFamily,
-  // },
+  typography: {
+    fontFamily: figtree.style.fontFamily,
+  },
   paddings: {
     xs: '16px',
     sm: '32px',
