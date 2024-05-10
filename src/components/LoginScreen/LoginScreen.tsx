@@ -104,6 +104,7 @@ const LoginScreen = () => {
           <StyledForgotPasswordText variant='h4'>¿Olvidaste tu contraseña?</StyledForgotPasswordText>
         </StyledLink>
 
+        {/* TODO add disabled state if no value on the input */}
         <StyledConfirmButton variant='contained' onClick={() => router.push('/rumie')}>
           Iniciar Sesión
         </StyledConfirmButton>
