@@ -8,7 +8,7 @@ const MuiTypography: Components<Omit<Theme, 'components'>>['MuiTypography'] = {
     h1: {
       fontSize: 24,
       fontWeight: 600,
-      lineHeight: '30px',
+      lineHeight: '32px',
     },
     h2: {
       fontSize: 32,
