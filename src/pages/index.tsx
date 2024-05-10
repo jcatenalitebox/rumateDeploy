@@ -1,13 +1,25 @@
 import Head from 'next/head';
-import { Box, Button, styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
+import WelcomeScreen from '@/components/WelcomeScreen';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
-const StyledWrapper = styled(Box)`
+const StyledWrapper = styled(motion.div)`
   margin: 0 auto;
   gap: 20px;
   display: flex;
 `;
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Head>
@@ -16,10 +28,14 @@ export default function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <StyledWrapper>
-        <Button variant='contained'>Iniciar sesion</Button>
-        <Button variant='outlined'>Registrate</Button>
-      </StyledWrapper>
+      {isLoading ? (
+        <WelcomeScreen />
+      ) : (
+        <StyledWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <Button variant='contained'>Iniciar sesion</Button>
+          <Button variant='outlined'>Registrate</Button>
+        </StyledWrapper>
+      )}
     </>
   );
 }
