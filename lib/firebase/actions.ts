@@ -23,6 +23,8 @@ export const registerUser = async (userData: any) => {
 
       const docSnap = await getDoc(docRef);
 
+      localStorage.setItem('user', JSON.stringify(docSnap.data()));
+
       return { success: true, data: docSnap.data() };
     }
 
