@@ -8,12 +8,14 @@ import UserRole from '@/components/Register/UserRole';
 import HostieForm from '@/components/Register/HostieForm';
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
+import CompletedScreen from '@/components/Register/CompletedScreen';
 
 enum SignUpStepsEnum {
   USER_ROLE = 'USER_ROLE',
   PERSONAL_DATA = 'PERSONAL_DATA',
   MORE_INFORMATION = 'MORE_INFORMATION',
   HOSTIE_FORM = 'HOSTIE_FORM',
+  SUCCES_STEP = 'SUCCES_STEP',
 }
 
 type SignUpSteps = SignUpStepsEnum[];
@@ -29,6 +31,7 @@ const getStepComponents = (
   [SignUpStepsEnum.MORE_INFORMATION]: () => <MoreInformation signUpBaseNameForm={signUpBaseNameForm} />,
   [SignUpStepsEnum.HOSTIE_FORM]: () =>
     userRole === UserRoleEnum.HOSTIE && <HostieForm signUpBaseNameForm={signUpBaseNameForm} />,
+  [SignUpStepsEnum.SUCCES_STEP]: () => <CompletedScreen />,
 });
 
 type StepHandlerProps = {

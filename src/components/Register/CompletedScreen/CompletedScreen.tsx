@@ -4,7 +4,9 @@ import PinkLinesMisc from '@/assets/pink-lines-misc';
 import SemiCircleMisc from '@/assets/semi-circle';
 import YellowHandMisc from '@/assets/yellow-hand-misc';
 import YellowLinesMisc from '@/assets/yellow-lines-misc';
+import { useUserRole } from '@/hooks/useUserRole';
 import theme from '@/theme';
+import { UserRoleEnum } from '@/types';
 import { Box, Typography, styled } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -129,13 +131,15 @@ const StyledPinkLines = styled(motion.div)`
 
 function CompletedScreen() {
   const router = useRouter();
+  const { userRole } = useUserRole();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push('/hostie');
+      if (userRole === UserRoleEnum.RUMIE) return router.push('/rumie');
+      return router.push('/hostie');
     }, 1200);
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [router, userRole]);
 
   return (
     <StyledWrapper initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
