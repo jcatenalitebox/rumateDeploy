@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import { AuthContext } from '@/context/AuthContext';
+import { signIn } from '../../../lib/firebase/actions';
 
 const StyledWrapper = styled(motion.div)``;
 
@@ -67,6 +69,8 @@ const StyledSignUpText = styled(Typography)`
 const LoginScreen = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const { dispatch } = useContext<any>(AuthContext);
 
   const handleLogin = () => {
     signIn(email, password, dispatch);
