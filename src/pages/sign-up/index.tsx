@@ -4,6 +4,7 @@ import RumieSignUpImage from '../../assets/rumie-sign-up.svg';
 import HostieSignUpImage from '../../assets/hostie-sign-up.svg';
 import Image from 'next/image';
 import MobileHeader from '@/components/Common/MobileHeader';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const StyledWrapper = styled(motion.div)`
   display: flex;
@@ -23,6 +24,31 @@ const StyledCardWrapper = styled('div')`
 const StyledCard = styled(Card)`
   gap: 20px;
   width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2);
+`;
+
+const StyledCardContent = styled(CardContent)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+
+  :last-child {
+    padding-bottom: 10px;
+  }
+`;
+
+const StyledTypography = styled(Typography)`
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+const StyledIconButton = styled(ArrowForwardIcon)`
+  color: rgba(27, 105, 248, 1);
+
+  &:hover {
+    background: none;
+  }
 `;
 
 const StyledImageWrapper = styled('div')`
@@ -46,24 +72,22 @@ function SignUpPage() {
       <MobileHeader title='Elegí tu perfil' />
       <StyledCardWrapper>
         <StyledCard>
-          <StyledImageWrapper title='rumie sign up image'>
+          <StyledImageWrapper title='hostie sign up image'>
             <Image src={HostieSignUpImage} alt='hostie sign up image' />
           </StyledImageWrapper>
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
-              Lizard
-            </Typography>
-          </CardContent>
+          <StyledCardContent>
+            <StyledTypography>Hostie</StyledTypography>
+            <StyledIconButton />
+          </StyledCardContent>
         </StyledCard>
         <StyledCard>
           <StyledImageWrapper title='rumie sign up image'>
             <Image src={RumieSignUpImage} alt='hostie sign up image' />
           </StyledImageWrapper>
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
-              Lizard
-            </Typography>
-          </CardContent>
+          <StyledCardContent>
+            <StyledTypography>Rumie</StyledTypography>
+            <StyledIconButton />
+          </StyledCardContent>
         </StyledCard>
       </StyledCardWrapper>
     </StyledWrapper>
