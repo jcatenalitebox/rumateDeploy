@@ -4,6 +4,7 @@ export enum InputEnum {
   DROPDOWN = 'DROPDOWN',
   MULTI_SELECT = 'MULTI_SELECT',
   DATE = 'DATE',
+  FILE = 'FILE',
 }
 
 export type InputType = {

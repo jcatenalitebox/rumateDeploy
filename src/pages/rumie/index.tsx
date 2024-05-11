@@ -1,5 +1,5 @@
 import { Box, Container, InputAdornment, TextField, Typography, styled } from '@mui/material';
-import { APARTMENTS_DATA } from '@/utils/constants';
+//import { APARTMENTS_DATA } from '@/utils/constants';
 import ApartmentCard from '@/components/Common/ApartmentCard';
 import SearchIcon from '@mui/icons-material/Search';
 import MobileHeader from '@/components/Common/MobileHeader';
@@ -7,9 +7,9 @@ import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
 import RumieEmptyState from '@/components/Common/RumieEmptyState';
-import { useEffect } from 'react';
+import { Key, useEffect } from 'react';
 import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -38,6 +38,7 @@ const StyledResultsText = styled(Typography)`
 
 function RumiePage() {
   const [search, setSearch] = useState('');
+  const [cards, setCards] = useState([] as any[]);
   // const [city, setCity] = useState('All' as string);
 
   // const cities = Array.from(new Set(APARTMENTS_DATA.map((apartment) => apartment.city)) as Set<string>);
@@ -51,9 +52,9 @@ function RumiePage() {
   // };
 
   const filteredItems = useMemo(() => {
-    if (search === '') return APARTMENTS_DATA;
+    if (search === '') return cards;
 
-    const filteredData = APARTMENTS_DATA.filter((apartment) => {
+    const filteredData = cards.filter((apartment) => {
       const stylizedState = apartment.state.toUpperCase();
       const stylizedCity = apartment.city.toUpperCase();
 
@@ -66,9 +67,9 @@ function RumiePage() {
   useEffect(() => {
     const fetchData = async () => {
       const user = localStorage.getItem('user');
-      getUserByEmail(JSON.parse(user || '{}').email).then((res) => {
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
         searchForCoincidences(res.data?.id).then((res) => {
-          console.log(res);
+          setCards(res?.data || []);
         });
       });
     };
@@ -98,8 +99,10 @@ function RumiePage() {
         />
         <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
       </StyledInputWrapper>
-      {APARTMENTS_DATA.length > 0 ? (
-        filteredItems.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
+      {filteredItems.length > 0 ? (
+        filteredItems.map((apartment: { user_id: Key | null | undefined }) => (
+          <ApartmentCard key={apartment.user_id} apartment={apartment} />
+        ))
       ) : (
         <RumieEmptyState />
       )}

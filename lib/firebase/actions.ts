@@ -56,7 +56,7 @@ export const uploadImage = async (imageFile: any) => {
   try {
     await uploadBytes(storageRef, imageFile);
 
-    return { success: true, message: UPLOAD_SUCCESS_MESSAGE };
+    return { success: true, message: UPLOAD_SUCCESS_MESSAGE, data: storageRef.fullPath };
   } catch (error) {
     return { success: false, message: error };
   }
@@ -186,7 +186,7 @@ const PROPS = [
   ADITIONAL_PROPERTIES.SCARF,
 ];
 
-const NUMBER_OF_COINCIDENCES = 3;
+const NUMBER_OF_COINCIDENCES = 4;
 
 export const searchForCoincidences = async (id: any) => {
   try {

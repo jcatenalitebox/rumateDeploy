@@ -100,7 +100,7 @@ const apartment = APARTMENTS_DATA[0];
 
 function HostiePage() {
   const [value, setValue] = useState(0);
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -110,7 +110,7 @@ function HostiePage() {
   useEffect(() => {
     const fetchData = async () => {
       const user = localStorage.getItem('user');
-      getUserByEmail(JSON.parse(user || '{}').email).then((res) => {
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
         searchForCoincidences(res.data?.id)
           .then((res) => {
             setCards(res?.data || []);

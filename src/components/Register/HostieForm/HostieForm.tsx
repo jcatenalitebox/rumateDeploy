@@ -1,5 +1,5 @@
 import { useSteps } from '@/hooks/useSteps';
-import React from 'react';
+import React, { useState } from 'react';
 import { HOSTIE_GENERAL } from './hostieFormData';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { Box, Button, Step, StepLabel, Typography, styled } from '@mui/material';
@@ -12,7 +12,7 @@ import StepIconComponent from '@/components/Common/StepIconComponent';
 import FooterDrawer from '@/components/FooterDrawer';
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
-import { registerUser } from '../../../../lib/firebase/actions';
+import { registerUser, uploadImage } from '../../../../lib/firebase/actions';
 
 const StyledInputsWrapper = styled(Box)`
   ${theme.mixins.layout};
@@ -63,6 +63,7 @@ type Props = {
 
 const HostieForm = ({ signUpBaseNameForm }: Props) => {
   const { currentStep, prevStep, nextStep } = useSteps();
+  const [imageUrl, setImageUrl] = useState('');
   const { userRole } = useUserRole();
   const steps =
     userRole === UserRoleEnum.HOSTIE
@@ -91,7 +92,7 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
     };
     const valuesMappedClean = removeUndefined(valuesMapped);
     // console.log('hola', valuesMappedClean)
-    registerUser(valuesMappedClean).then(() => {
+    registerUser({ ...valuesMappedClean, image: imageUrl.data }).then(() => {
       nextStep();
     });
     //   .catch((err) => {
@@ -115,6 +116,22 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
       <StyledStepTitle variant='h3' fontWeight={600} fontSize={16}>
         Detalle de la vivienda
       </StyledStepTitle>
+
+      <StyledInputsWrapper>
+        <input
+          onChange={(e: any) => {
+            uploadImage(e.target.files[0])
+              .then((url) => {
+                setImageUrl(url);
+              })
+              .catch((err) => {
+                console.log('Error uploading image', err);
+              });
+          }}
+          id='image'
+          type={InputEnum.FILE}
+        />
+      </StyledInputsWrapper>
 
       <StyledInputsWrapper>
         <StyledInputComponent
