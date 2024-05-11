@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   currentUser: null,
 };
 
-export const AuthContext = createContext(INITIAL_STATE);
+export const AuthContext = createContext<any>(INITIAL_STATE);
 
 export const AuthContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
