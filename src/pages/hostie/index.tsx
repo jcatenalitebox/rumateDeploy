@@ -113,7 +113,7 @@ function HostiePage() {
       getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
         searchForCoincidences(res.data?.id)
           .then((res) => {
-            setCards(res?.data || []);
+            setCards((res?.data as any) || []);
           })
           .finally(() => {
             setIsLoading(false);
@@ -161,7 +161,7 @@ function HostiePage() {
             </StyledLikesContent>
           )}
 
-          {value === 0 && cards.map((card) => <ApartmentCard key={card.user_id} apartment={card} />)}
+          {value === 0 && (cards as any[]).map((card) => <ApartmentCard key={card?.user_id} apartment={card} />)}
 
           {value === 1 && (
             <Box sx={{ p: 3, height: 330 }}>
