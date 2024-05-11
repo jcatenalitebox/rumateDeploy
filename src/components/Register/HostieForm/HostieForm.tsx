@@ -62,7 +62,7 @@ type Props = {
 };
 
 const HostieForm = ({ signUpBaseNameForm }: Props) => {
-  const { currentStep, prevStep } = useSteps();
+  const { currentStep, prevStep, nextStep } = useSteps();
   const { userRole } = useUserRole();
   const steps =
     userRole === UserRoleEnum.HOSTIE
@@ -91,8 +91,8 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
     };
     const valuesMappedClean = removeUndefined(valuesMapped);
     // console.log('hola', valuesMappedClean)
-    registerUser(valuesMappedClean).then((res) => {
-      console.log('User registered', res);
+    registerUser(valuesMappedClean).then(() => {
+      nextStep();
     });
     //   .catch((err) => {
     //     console.log('Error registering user', err);
