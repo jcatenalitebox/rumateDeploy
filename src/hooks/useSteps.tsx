@@ -19,11 +19,13 @@ const useStepsContext = ({ steps, initialStep }: Props) => {
     setCurrentStepIndex(currentStepIndex - 1);
   };
 
+  const goToSucces = () => setCurrentStepIndex(steps.length - 1);
+
   const resetSteps = () => setCurrentStepIndex(initialStep);
 
   const currentStep = steps[currentStepIndex];
 
-  return { steps, currentStepIndex, currentStep, nextStep, prevStep, resetSteps };
+  return { steps, currentStepIndex, currentStep, nextStep, prevStep, resetSteps, goToSucces };
 };
 
 export const [StepsProvider, useSteps] = constate(useStepsContext);

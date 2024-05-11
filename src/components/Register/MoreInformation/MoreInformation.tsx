@@ -84,7 +84,7 @@ type Props = {
 };
 
 const MoreInformation = ({ signUpBaseNameForm }: Props) => {
-  const { currentStep, nextStep, prevStep } = useSteps();
+  const { currentStep, nextStep, prevStep, goToSucces } = useSteps();
   const [showMore, setShowMore] = useState<boolean>(false);
   const { setValue } = useFormContext();
   const parentForm = useWatch({ name: signUpBaseNameForm });
@@ -116,10 +116,10 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
         return obj;
       };
       const valuesMappedClean = removeUndefined(valuesMapped);
-      registerUser(valuesMappedClean);
-      // .then((res) => {
-      //   console.log('User registered', res);
-      // })
+      registerUser(valuesMappedClean).then((res) => {
+        console.log('User registered', res);
+        goToSucces();
+      });
       // .catch((err) => {
       //   console.log('Error registering user', err);
       // });

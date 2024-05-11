@@ -30,6 +30,7 @@ const InputComponent = ({ id, label, type, options, baseName, isHalfWidth, depen
           label={label}
           name={name}
           isHalfWidth={isHalfWidth}
+          type={id === 'password' ? 'password' : 'text'}
           InputProps={{
             endAdornment:
               id === 'password' ? (
