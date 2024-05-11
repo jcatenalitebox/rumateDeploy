@@ -2,7 +2,7 @@ import { Box, Button, Divider, FormControlLabel, Step, StepLabel, Switch, Typogr
 import React, { useState } from 'react';
 
 import { useSteps } from '@/hooks/useSteps';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import MobileHeader from '@/components/Common/MobileHeader';
 import { StyledStepper } from '@/components/Common/StyledStepper/StyledStepper';
 import theme from '@/theme';
@@ -11,6 +11,9 @@ import StepIconComponent from '@/components/Common/StepIconComponent';
 import InputComponent from '@/components/InputComponent';
 import FooterDrawer from '@/components/FooterDrawer';
 import { MORE_INFORMATION_INPUTS, MORE_INFORMATION_INPUTS_EXTRA } from './moreInfoDataInput';
+import { useUserRole } from '@/hooks/useUserRole';
+import { UserRoleEnum } from '@/types';
+import { registerUser } from '../../../../lib/firebase/actions';
 
 const formBaseName = 'moreInformation';
 
@@ -76,9 +79,15 @@ const StyledContinueButton = styled(Button)`
   width: 50%;
 `;
 
-const MoreInformation = () => {
+type Props = {
+  signUpBaseNameForm: string;
+};
+
+const MoreInformation = ({ signUpBaseNameForm }: Props) => {
   const { currentStep, nextStep, prevStep } = useSteps();
   const [showMore, setShowMore] = useState<boolean>(false);
+  const { setValue } = useFormContext();
+  const parentForm = useWatch({ name: signUpBaseNameForm });
 
   const defaultValues = MORE_INFORMATION_INPUTS.reduce((acc, input) => {
     return { ...acc, [input.id]: input.defaultValue };
@@ -90,11 +99,42 @@ const MoreInformation = () => {
     },
   });
 
-  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM'];
+  const { userRole } = useUserRole();
+
+  const values = useWatch({ name: formBaseName, control: form.control });
+
+  const isRumie = userRole === UserRoleEnum.RUMIE;
+
+  const handleOnClickNext = () => {
+    setValue(`${signUpBaseNameForm}.${currentStep}`, values);
+    if (isRumie) {
+      const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
+        return { ...acc, ...parentForm[key] };
+      }, {});
+      const removeUndefined = (obj: any) => {
+        Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
+        return obj;
+      };
+      const valuesMappedClean = removeUndefined(valuesMapped);
+      registerUser(valuesMappedClean);
+      // .then((res) => {
+      //   console.log('User registered', res);
+      // })
+      // .catch((err) => {
+      //   console.log('Error registering user', err);
+      // });
+    } else {
+      nextStep();
+    }
+  };
+
+  const steps =
+    userRole === UserRoleEnum.HOSTIE
+      ? ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM']
+      : ['PERSONAL_DATA', 'MORE_INFORMATION'];
   const currentStepIndex = steps.findIndex((step) => step === currentStep) || 0;
 
   const isValid = true;
-  // form.formState.isValid;
 
   return (
     <FormProvider {...form}>
@@ -141,7 +181,7 @@ const MoreInformation = () => {
           <StyledBackButton color='primary' variant='outlined' onClick={prevStep}>
             Atrás
           </StyledBackButton>
-          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={nextStep}>
+          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
             Siguiente
           </StyledContinueButton>
         </StyledInnerWrapper>
@@ -151,29 +191,3 @@ const MoreInformation = () => {
 };
 
 export default MoreInformation;
-
-{
-  /* return (
-    <FormProvider {...form}>
-      <div>{currentStep}</div>
-      <StyledInputWrapper>
-        {MORE_INFORMATION_INPUTS.map((input) => {
-          return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
-        })}
-      </StyledInputWrapper>
-      {showMore ? (
-        <StyledInputWrapper>
-          {MORE_INFORMATION_INPUTS_EXTRA.map((input) => {
-            return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
-          })}
-        </StyledInputWrapper>
-      ) : (
-        <Button variant='text' onClick={() => setShowMore(true)}>
-          Mas preguntas...
-        </Button>
-      )}
-
-      <Button color='primary' variant='contained' onClick={nextStep}>
-        Next Step
-      </Button> */
-}
