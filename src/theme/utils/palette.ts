@@ -25,7 +25,7 @@ export default {
   },
   customButtons: {
     primary: {
-      main: '#323BFF',
+      main: '#1B69F8',
       backgroundHover: '#2E36EB',
       backgroundFocus: '#2A32D6',
     },
@@ -45,7 +45,7 @@ export default {
   customColors: {
     yellow: '#FFE14F',
     skiBlue: '#5FAEFF',
-    blue: '#323BFF',
+    blue: '#1B69F8',
     white: '#FCFCFC',
     gray: '#D2D4D7',
     lightGray: '#F1F1F1',

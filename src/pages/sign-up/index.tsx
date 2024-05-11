@@ -3,12 +3,11 @@ import { motion } from 'framer-motion';
 import RumieSignUpImage from '../../assets/rumie-sign-up.svg';
 import HostieSignUpImage from '../../assets/hostie-sign-up.svg';
 import Image from 'next/image';
-import BackArrow from '../../assets/arrow';
+import MobileHeader from '@/components/Common/MobileHeader';
 
 const StyledWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   gap: 20px;
   min-height: 100vh;
   padding: 20px;
@@ -41,31 +40,10 @@ const StyledImageWrapper = styled('div')`
   }
 `;
 
-const StyledHeader = styled('div')`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-`;
-
-const StyledLeftArrow = styled(BackArrow)``;
-const StyledRightArrow = styled(BackArrow)``;
-
-const StyledTitle = styled(Typography)`
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 32px;
-`;
-
 function SignUpPage() {
   return (
     <StyledWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-      <StyledHeader>
-        <StyledLeftArrow />
-        <StyledTitle>Elegí tu perfil</StyledTitle>
-        <StyledRightArrow />
-      </StyledHeader>
+      <MobileHeader title='Elegí tu perfil' />
       <StyledCardWrapper>
         <StyledCard>
           <StyledImageWrapper title='rumie sign up image'>

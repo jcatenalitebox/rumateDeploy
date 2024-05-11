@@ -15,7 +15,7 @@ const StyledWrapper = styled(motion.div)`
 const StyledSubWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   padding: 32px 0 0 32px;
   position: relative;
 `;

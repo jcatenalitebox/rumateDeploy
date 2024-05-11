@@ -10,8 +10,8 @@ const BirdMisc = ({ width = 28, height = 17 }: Props) => {
       <path
         d='M2 2C5.33333 2.66667 11.9 6.4 11.5 16C12 13 15.5 7.5 25.5 9.5'
         stroke='#031426'
-        stroke-width='4'
-        stroke-linecap='round'
+        strokeWidth='4'
+        strokeLinecap='round'
       />
     </svg>
   );

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import WelcomeScreen from '@/components/WelcomeScreen';
-import SignUpPage from './sign-up';
 import { useEffect, useState } from 'react';
+import LoginScreen from '@/components/LoginScreen';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
@@ -9,6 +9,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
+      // change this to 1200
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
@@ -21,7 +22,7 @@ export default function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      {isLoading ? <WelcomeScreen /> : <SignUpPage />}
+      {isLoading ? <WelcomeScreen /> : <LoginScreen />}
     </>
   );
 }

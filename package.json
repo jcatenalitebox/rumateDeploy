@@ -10,20 +10,22 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.15.17",
+    "framer-motion": "^10.2.3",
+    "lodash": "^4.17.21",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "framer-motion": "^10.2.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@eslint/js": "^9.2.0",
-    "date-fns": "^2.29.3",
+    "@mui/material": "^5.15.17",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@mui/material": "^5.11.6",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "date-fns": "^2.29.3",
     "eslint": "^8.0.1",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -35,11 +37,10 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-tailwindcss": "^3.13.1",
     "globals": "^15.2.0",
+    "husky": "^8.0.0",
     "prettier": "3.2.5",
-    "typescript": "^5",
     "react-hook-form": "7.45.0",
-    "typescript-eslint": "^7.8.0",
-    "lodash": "^4.17.21",
-    "husky": "^8.0.0"
+    "typescript": "^5",
+    "typescript-eslint": "^7.8.0"
   }
 }

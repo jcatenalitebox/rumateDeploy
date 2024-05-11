@@ -8,12 +8,12 @@ const MuiTypography: Components<Omit<Theme, 'components'>>['MuiTypography'] = {
     h1: {
       fontSize: 24,
       fontWeight: 600,
-      lineHeight: '30px',
+      lineHeight: '32px',
     },
     h2: {
-      fontSize: 20,
-      fontWeight: 400,
-      lineHeight: '25px',
+      fontSize: 32,
+      fontWeight: 700,
+      lineHeight: '40px',
     },
     h3: {
       fontSize: 18,
@@ -22,7 +22,7 @@ const MuiTypography: Components<Omit<Theme, 'components'>>['MuiTypography'] = {
     },
     h4: {
       fontSize: 14,
-      fontWeight: 400,
+      fontWeight: 600,
       lineHeight: '20px',
     },
     subtitle1: {
