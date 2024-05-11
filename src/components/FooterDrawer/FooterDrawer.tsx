@@ -13,7 +13,7 @@ const StyledWrapper = styled(Paper)`
   background: ${() => alpha(theme.palette.background.default, 1)};
   backdrop-filter: blur(2px);
   border-radius: 0;
-  margin-top: 24px;
+  margin-top: auto;
   ${(props) => props.className === 'no-box-shadow' && `box-shadow: none;`}
 `;
 
