@@ -130,7 +130,7 @@ export const getUserByEmail = async (email: string) => {
       return { success: false, error: 'No user found' };
     } else {
       const user = querySnapshot.docs[0];
-      return { success: true, data: user.data().userRole };
+      return { success: true, data: { id: user.id, userRole: user.data().userRole } };
     }
   } catch (error) {
     return { success: false, error };
@@ -159,6 +159,7 @@ export const getRuMatches = async (id: any) => {
 
     const users = [];
 
+    if (!rumatches) return;
     for (const id of rumatches) {
       const userDocRef = doc(db, 'users', id);
       const userDocSnap = await getDoc(userDocRef);
@@ -174,7 +175,18 @@ export const getRuMatches = async (id: any) => {
   }
 };
 
-const PROPS = [ADITIONAL_PROPERTIES.FUTBOL, ADITIONAL_PROPERTIES.POLITICA, ADITIONAL_PROPERTIES.MASCOTAS];
+const PROPS = [
+  ADITIONAL_PROPERTIES.CLEANLINESS,
+  ADITIONAL_PROPERTIES.LGBTIQFRIENDLY,
+  ADITIONAL_PROPERTIES.MUSICIANFRIENDLY,
+  ADITIONAL_PROPERTIES.PETFRIENDLY,
+  ADITIONAL_PROPERTIES.POLITICALPREFERENCE,
+  ADITIONAL_PROPERTIES.ZOMBIEAPOCALYPSE,
+  ADITIONAL_PROPERTIES.SOCCERTEAMPREFERENCEDETAIL,
+  ADITIONAL_PROPERTIES.SCARF,
+];
+
+const NUMBER_OF_COINCIDENCES = 3;
 
 export const searchForCoincidences = async (id: any) => {
   try {
@@ -192,13 +204,13 @@ export const searchForCoincidences = async (id: any) => {
     const matchedUsers = [];
 
     for (const user of users) {
-      let matchCount = 0;
+      let matchCount = [];
       for (const prop of PROPS) {
         if (user[prop] === initialUser[prop]) {
-          matchCount++;
+          matchCount.push(prop);
         }
       }
-      if (matchCount >= 3) matchedUsers.push(user);
+      if (matchCount.length >= NUMBER_OF_COINCIDENCES) matchedUsers.push({ ...user, matchCount });
     }
 
     return { success: true, data: matchedUsers };
