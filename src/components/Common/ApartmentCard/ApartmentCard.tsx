@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 const StyledCard = styled(Card)`
   min-width: 380px;
   max-width: 100%;
+  min-height: 100px;
   cursor: pointer;
 
   &:hover {
@@ -56,20 +57,21 @@ const StyledBottomWrapper = styled(Box)`
 
 type Props = {
   apartment: any;
+  displayImage?: boolean;
 };
 
-const ApartmentCard = ({ apartment }: Props) => {
+const ApartmentCard = ({ apartment, displayImage = true }: Props) => {
   const router = useRouter();
-
-  console.log({ apartment });
 
   return (
     <StyledCard key={apartment.user_id}>
-      <CardMedia
-        sx={{ height: 165 }}
-        image={apartment.picture_url || 'https://www.hotelnicolaas.nl/images/joomlart/demo/default.jpg'}
-        title='apartment image'
-      />
+      {displayImage && (
+        <CardMedia
+          sx={{ height: 165 }}
+          image={apartment.picture_url || 'https://www.hotelnicolaas.nl/images/joomlart/demo/default.jpg'}
+          title='apartment image'
+        />
+      )}
       <CardContent>
         <StyledTitleWrapper>
           <Typography variant='h5'>{apartment.user_name}</Typography>
@@ -84,7 +86,7 @@ const ApartmentCard = ({ apartment }: Props) => {
         </StyledTopRow>
         <Typography>{apartment.apartment_price}</Typography>
         <StyledBottomWrapper>
-          {router.pathname === '/hostie' ? <PencilMisc /> : <ArrowForwardIcon />}
+          {router.pathname === '/hostie' && displayImage ? <PencilMisc /> : <ArrowForwardIcon />}
         </StyledBottomWrapper>
       </CardContent>
     </StyledCard>
