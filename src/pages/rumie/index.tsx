@@ -36,17 +36,10 @@ const StyledResultsText = styled(Typography)`
 
 function RumiePage() {
   const [search, setSearch] = useState('');
-  // const [city, setCity] = useState('All' as string);
-
-  // const cities = Array.from(new Set(APARTMENTS_DATA.map((apartment) => apartment.city)) as Set<string>);
 
   const handleSearch = (value: string) => {
     setSearch(value);
   };
-
-  // const handleDropdown = (event: any) => {
-  //   setCity(event.target.value);
-  // };
 
   const filteredItems = useMemo(() => {
     if (search === '') return APARTMENTS_DATA;
@@ -82,7 +75,7 @@ function RumiePage() {
           }}
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
+        <StyledResultsText variant='h4'>{`Resultados ${filteredItems.length}`}</StyledResultsText>
       </StyledInputWrapper>
       {APARTMENTS_DATA.length > 0 ? (
         filteredItems.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
