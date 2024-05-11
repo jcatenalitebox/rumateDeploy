@@ -1,5 +1,5 @@
 import { useSteps } from '@/hooks/useSteps';
-import React from 'react';
+import React, { useState } from 'react';
 import { HOSTIE_GENERAL } from './hostieFormData';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { Box, Button, Step, StepLabel, Typography, styled } from '@mui/material';
@@ -13,6 +13,7 @@ import FooterDrawer from '@/components/FooterDrawer';
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
 import { registerUser } from '../../../../lib/firebase/actions';
+import Loader from '@/components/Loader';
 
 const StyledInputsWrapper = styled(Box)`
   ${theme.mixins.layout};
@@ -71,6 +72,7 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
   const currentStepIndex = steps.findIndex((step) => step === currentStep) || 0;
   const { setValue } = useFormContext();
   const parentForm = useWatch({ name: signUpBaseNameForm });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm({
     defaultValues: {
@@ -82,6 +84,7 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
 
   const handleOnClickNext = () => {
     setValue(`${signUpBaseNameForm}.${currentStep}`, values);
+    setIsLoading(true);
     const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
       return { ...acc, ...parentForm[key] };
     }, {});
@@ -90,13 +93,10 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
       return obj;
     };
     const valuesMappedClean = removeUndefined(valuesMapped);
-    // console.log('hola', valuesMappedClean)
     registerUser(valuesMappedClean).then(() => {
+      setIsLoading(false);
       nextStep();
     });
-    //   .catch((err) => {
-    //     console.log('Error registering user', err);
-    //   });
   };
 
   const isValid = form.formState.isValid;
@@ -170,7 +170,7 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
             Atrás
           </StyledBackButton>
           <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
-            Siguiente
+            {isLoading ? <Loader size={20} /> : 'Finalizar'}
           </StyledContinueButton>
         </StyledInnerWrapper>
       </FooterDrawer>

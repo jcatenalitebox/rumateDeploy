@@ -32,6 +32,12 @@ export type PersonalData = {
   };
 };
 
+const StyledWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 const StyledStepTitle = styled(Typography)`
   ${theme.mixins.layout}
 `;
@@ -98,30 +104,32 @@ const PersonalData = ({ signUpBaseNameForm }: Props) => {
 
   return (
     <FormProvider {...form}>
-      <MobileHeader title={userRole === UserRoleEnum.HOSTIE ? 'Hostie' : 'Rumie'} onClickLeftComponent={prevStep} />
-      <StyledStepper activeStep={currentStepIndex}>
-        {steps.map((label) => (
-          <StyledStep key={label}>
-            <StepLabel StepIconComponent={StepIconComponent} />
-          </StyledStep>
-        ))}
-      </StyledStepper>
+      <StyledWrapper>
+        <MobileHeader title={userRole === UserRoleEnum.HOSTIE ? 'Hostie' : 'Rumie'} onClickLeftComponent={prevStep} />
+        <StyledStepper activeStep={currentStepIndex}>
+          {steps.map((label) => (
+            <StyledStep key={label}>
+              <StepLabel StepIconComponent={StepIconComponent} />
+            </StyledStep>
+          ))}
+        </StyledStepper>
 
-      <StyledStepTitle variant='h3' fontWeight={600} fontSize={16}>
-        Datos personales
-      </StyledStepTitle>
-      <StyledInputsWrapper>
-        {PERSONAL_DATA_INPUTS.map((input) => {
-          return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
-        })}
-      </StyledInputsWrapper>
-      <FooterDrawer>
-        <StyledInnerWrapper>
-          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
-            Siguiente
-          </StyledContinueButton>
-        </StyledInnerWrapper>
-      </FooterDrawer>
+        <StyledStepTitle variant='h3' fontWeight={600} fontSize={16}>
+          Datos personales
+        </StyledStepTitle>
+        <StyledInputsWrapper>
+          {PERSONAL_DATA_INPUTS.map((input) => {
+            return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
+          })}
+        </StyledInputsWrapper>
+        <FooterDrawer>
+          <StyledInnerWrapper>
+            <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
+              Siguiente
+            </StyledContinueButton>
+          </StyledInnerWrapper>
+        </FooterDrawer>
+      </StyledWrapper>
     </FormProvider>
   );
 };
