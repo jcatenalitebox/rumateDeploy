@@ -44,6 +44,7 @@ const StyledCard = styled(Card)`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.2);
   max-width: 343px;
+  cursor: pointer;
 `;
 
 const StyledCardContent = styled(CardContent)`

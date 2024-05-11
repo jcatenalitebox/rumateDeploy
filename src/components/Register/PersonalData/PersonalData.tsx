@@ -98,7 +98,7 @@ const PersonalData = ({ signUpBaseNameForm }: Props) => {
 
   return (
     <FormProvider {...form}>
-      <MobileHeader title='Hostie' onClickBack={prevStep} />
+      <MobileHeader title='Hostie' onClickLeftComponent={prevStep} />
       <StyledStepper activeStep={currentStepIndex}>
         {steps.map((label) => (
           <StyledStep key={label}>
