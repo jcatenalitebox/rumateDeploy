@@ -2,7 +2,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
-import { db, auth } from '../firebase';
+import { db, auth, storage } from '../firebase';
 
 import { AuthAction } from './enum';
 import { AUTH_SUCCESS_MESSAGE, UPLOAD_SUCCESS_MESSAGE } from './constants';
@@ -30,16 +30,16 @@ export const registerUser = async (userData: any) => {
   }
 };
 
-export const uploadImage = async (imageFile: any, imageName: string) => {
+export const uploadImage = async (imageFile: any) => {
   if (imageFile === null) return;
 
   const randomString = Math.random().toString(36).substring(2, 15);
-  const storageRef = ref(imageFile, `images/${imageName.replace(/\s/g, '-')}-${randomString}`);
+  const storageRef = ref(storage, `images/${imageFile.name.replace(/\s/g, '-')}-${randomString}`);
 
   try {
     await uploadBytes(storageRef, imageFile);
 
-    return { success: true, message: AUTH_SUCCESS_MESSAGE };
+    return { success: true, message: UPLOAD_SUCCESS_MESSAGE };
   } catch (error) {
     return { success: false, message: error };
   }
@@ -52,7 +52,7 @@ export const signIn = async (email: string, password: string, dispatch: any) => 
 
     dispatch({ type: AuthAction.LOGIN, payload: user });
 
-    return { success: true, message: UPLOAD_SUCCESS_MESSAGE };
+    return { success: true, message: AUTH_SUCCESS_MESSAGE };
   } catch (error) {
     return { success: false, error };
   }

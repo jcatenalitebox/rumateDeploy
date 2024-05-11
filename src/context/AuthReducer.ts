@@ -1,6 +1,6 @@
-import AuthAction from './AuthAction';
+import { AuthAction } from '../../lib/firebase/enum';
 
-const AuthReducer = (state, action) => {
+const AuthReducer = (state: any, action: { type: any; payload: any }) => {
   switch (action.type) {
     case AuthAction.LOGIN:
       return {
