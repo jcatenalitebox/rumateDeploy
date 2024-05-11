@@ -61,8 +61,6 @@ type Props = {
 const ApartmentCard = ({ apartment }: Props) => {
   const router = useRouter();
 
-  console.log({ apartment });
-
   return (
     <StyledCard key={apartment.user_id}>
       <CardMedia

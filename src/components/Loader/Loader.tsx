@@ -4,7 +4,7 @@ import { Box, styled } from '@mui/material';
 
 const StyledWrapper = styled(Box, transientOptions)<{ $size: number }>`
   .ring {
-    --uib-size: ${props => props.$size}px;
+    --uib-size: ${(props) => props.$size}px;
     --uib-speed: 2s;
     --uib-color: ${theme.palette.common.white};
 
