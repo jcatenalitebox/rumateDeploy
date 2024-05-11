@@ -138,7 +138,7 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
 
   return (
     <FormProvider {...form}>
-      <MobileHeader title='Hostie' onClickLeftComponent={prevStep} />
+      <MobileHeader title={userRole === UserRoleEnum.HOSTIE ? 'Hostie' : 'Rumie'} onClickLeftComponent={prevStep} />
       <StyledStepper activeStep={currentStepIndex}>
         {steps.map((label) => (
           <StyledStep key={label}>
