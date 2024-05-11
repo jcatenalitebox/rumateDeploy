@@ -1,7 +1,7 @@
 import { useSteps } from '@/hooks/useSteps';
 import React from 'react';
 import { HOSTIE_GENERAL } from './hostieFormData';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { Box, Button, Step, StepLabel, Typography, styled } from '@mui/material';
 import InputComponent from '@/components/InputComponent';
 import { InputEnum } from '../PersonalData/inputData';
@@ -10,6 +10,8 @@ import { StyledStepper } from '@/components/Common/StyledStepper/StyledStepper';
 import theme from '@/theme';
 import StepIconComponent from '@/components/Common/StepIconComponent';
 import FooterDrawer from '@/components/FooterDrawer';
+import { useUserRole } from '@/hooks/useUserRole';
+import { UserRoleEnum } from '@/types';
 
 const StyledInputsWrapper = styled(Box)`
   ${theme.mixins.layout};
@@ -54,16 +56,36 @@ const StyledContinueButton = styled(Button)`
 
 const formBaseName = 'hostie';
 
-const HostieForm = () => {
-  const { currentStep, nextStep, prevStep } = useSteps();
-  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM'];
+type Props = {
+  signUpBaseNameForm: string;
+};
+
+const HostieForm = ({ signUpBaseNameForm }: Props) => {
+  const { currentStep, prevStep } = useSteps();
+  const { userRole } = useUserRole();
+  const steps =
+    userRole === UserRoleEnum.HOSTIE
+      ? ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM']
+      : ['PERSONAL_DATA', 'MORE_INFORMATION'];
   const currentStepIndex = steps.findIndex((step) => step === currentStep) || 0;
+  const { setValue } = useFormContext();
+  const parentForm = useWatch({ name: signUpBaseNameForm });
 
   const form = useForm({
     defaultValues: {
       [formBaseName]: {},
     },
   });
+
+  const values = useWatch({ name: formBaseName, control: form.control });
+
+  const handleOnClickNext = () => {
+    setValue(`${signUpBaseNameForm}.${currentStep}`, values);
+    const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
+      return { ...acc, ...parentForm[key] };
+    }, {});
+    console.log('hola', valuesMapped);
+  };
 
   const isValid = form.formState.isValid;
 
@@ -135,7 +157,7 @@ const HostieForm = () => {
           <StyledBackButton color='primary' variant='outlined' onClick={prevStep}>
             Atrás
           </StyledBackButton>
-          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={nextStep}>
+          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
             Siguiente
           </StyledContinueButton>
         </StyledInnerWrapper>

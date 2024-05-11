@@ -1,5 +1,5 @@
 import { Box, Button, Step, StepLabel, Typography, styled } from '@mui/material';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { useSteps } from '@/hooks/useSteps';
 import InputComponent from '@/components/InputComponent';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,6 +10,8 @@ import FooterDrawer from '@/components/FooterDrawer';
 import theme from '@/theme';
 import { StyledStepper } from '@/components/Common/StyledStepper/StyledStepper';
 import StepIconComponent from '@/components/Common/StepIconComponent';
+import { useUserRole } from '@/hooks/useUserRole';
+import { UserRoleEnum } from '@/types';
 
 export type PersonalData = {
   personalData: {
@@ -58,14 +60,23 @@ const StyledStep = styled(Step)`
 
 const formBaseName = 'personalData';
 
-const PersonalData = () => {
+type Props = {
+  signUpBaseNameForm: string;
+};
+
+const PersonalData = ({ signUpBaseNameForm }: Props) => {
   const { nextStep, prevStep, currentStep } = useSteps();
+  const { setValue } = useFormContext();
 
   const defaultValues = PERSONAL_DATA_INPUTS.reduce((acc, input) => {
     return { ...acc, [input.id]: input.defaultValue };
   }, {});
 
-  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM'];
+  const { userRole } = useUserRole();
+  const steps =
+    userRole === UserRoleEnum.HOSTIE
+      ? ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM']
+      : ['PERSONAL_DATA', 'MORE_INFORMATION'];
 
   const form = useForm<PersonalData>({
     resolver: yupResolver(personalDataSchema),
@@ -73,6 +84,13 @@ const PersonalData = () => {
       [formBaseName]: defaultValues,
     },
   });
+
+  const formValues = useWatch({ name: formBaseName, control: form.control });
+
+  const handleOnClickNext = () => {
+    nextStep();
+    setValue(`${signUpBaseNameForm}.${currentStep}`, formValues);
+  };
 
   const isValid = true;
   // form.formState.isValid;
@@ -99,7 +117,7 @@ const PersonalData = () => {
       </StyledInputsWrapper>
       <FooterDrawer>
         <StyledInnerWrapper>
-          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={nextStep}>
+          <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
             Siguiente
           </StyledContinueButton>
         </StyledInnerWrapper>
