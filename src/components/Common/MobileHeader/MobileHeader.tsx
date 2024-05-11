@@ -1,5 +1,4 @@
 import { Box, IconButton, Typography, styled } from '@mui/material';
-import React from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import theme from '@/theme';
 import { useRouter } from 'next/router';
@@ -24,18 +23,23 @@ const StyledArrowBackIosIcon = styled(ArrowBackIosIcon)`
 `;
 
 type Props = {
+  onClickBack?: () => void;
   title?: string;
   rightComponent?: React.ReactNode;
 };
 
-const MobileHeader = ({ title, rightComponent }: Props) => {
+const MobileHeader = ({ onClickBack, title, rightComponent }: Props) => {
   const router = useRouter();
+
+  const handleOnClickBack = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (onClickBack) return onClickBack();
+    router.back();
+  };
+
   return (
     <StyledWrapper>
-      <StyledIconButton
-        onClick={() => {
-          router.back();
-        }}>
+      <StyledIconButton onClick={handleOnClickBack}>
         <StyledArrowBackIosIcon color='inherit' />
       </StyledIconButton>
       <Typography variant='h1'>{title}</Typography>
