@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Box, styled } from '@mui/material';
 
 import { AuthContextProvider } from '../context/AuthContext';
-import { getRuMatches, searchForCoincidences } from '../../lib/firebase/actions';
+import { getRuMatches, searchForCoincidences, searchForZodiacCompatibility } from '../../lib/firebase/actions';
 
 const StyledWrappe = styled(Box)`
   background-color: white;
@@ -22,6 +22,12 @@ export default function Home() {
     });
   };
 
+  const handleTestZodiaco = async () => {
+    searchForZodiacCompatibility('JOgyiOvpRWGhV9OeYh50', 'JV6kNNXRvDmTjbaoyPiL').then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <Head>
@@ -35,6 +41,7 @@ export default function Home() {
           <div>Content</div>
           <button onClick={ShowCoincidences}>test matches</button>
           <button onClick={handleTestMatches}>test matches</button>
+          <button onClick={handleTestZodiaco}>test zodiaco</button>
         </AuthContextProvider>
       </StyledWrappe>
     </>

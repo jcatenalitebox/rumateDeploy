@@ -159,3 +159,40 @@ export const searchForCoincidences = async (id: any) => {
     return { success: false, error };
   }
 };
+
+const ZODIAC = {
+  aries: ['geminis', 'leo', 'sagitario', 'acuario'],
+  tauro: ['cancer', 'virgo', 'capricornio', 'piscis'],
+  geminis: ['aries', 'leo', 'libra', 'acuario'],
+  cáncer: ['tauro', 'virgo', 'escorpio', 'piscis'],
+  leo: ['aries', 'geminis', 'libra', 'sagitario'],
+  virgo: ['tauro', 'cancer', 'escorpio', 'capricornio'],
+  libra: ['géminis', 'leo', 'sagitario', 'acuario'],
+  escorpio: ['cáncer', 'virgo', 'capricornio', 'piscis'],
+  sagitario: ['aries', 'leo', 'libra', 'acuario'],
+  capricornio: ['tauro', 'cancer', 'virgo', 'escorpio'],
+  acuario: ['aries', 'geminis', 'libra', 'sagitario'],
+  piscis: ['tauro', 'cancer', 'escorpio', 'capricornio'],
+};
+
+export const searchForZodiacCompatibility = async (id: any, otherId: any) => {
+  try {
+    const userDocRef1 = doc(db, 'users', id);
+    const userDocSnap1 = await getDoc(userDocRef1);
+
+    if (!userDocSnap1.exists()) return { success: false, error: 'No user found' };
+    const user1 = userDocSnap1.data();
+
+    const userDocRef2 = doc(db, 'users', otherId);
+    const userDocSnap2 = await getDoc(userDocRef2);
+
+    if (!userDocSnap2.exists()) return { success: false, error: 'No user found' };
+    const user2 = userDocSnap2.data();
+
+    const isCompatible = ZODIAC[user1.zodiac as keyof typeof ZODIAC].includes(user2.zodiac);
+
+    return { success: true, data: isCompatible };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
