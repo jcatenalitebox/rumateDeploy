@@ -11,6 +11,7 @@ import { useWatch } from 'react-hook-form';
 const StyledWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
+  gap: 15px;
 `;
 
 const StyledVisibilityOutlinedIcon = styled(VisibilityOutlinedIcon)`
