@@ -6,6 +6,7 @@ import MobileHeader from '@/components/Common/MobileHeader';
 import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
+import RumieEmptyState from '@/components/Common/RumieEmptyState';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -83,9 +84,11 @@ function RumiePage() {
         />
         <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
       </StyledInputWrapper>
-      {APARTMENTS_DATA.map((apartment) => (
-        <ApartmentCard key={apartment.user_id} apartment={apartment} />
-      ))}
+      {APARTMENTS_DATA.length > 0 ? (
+        APARTMENTS_DATA.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
+      ) : (
+        <RumieEmptyState />
+      )}
     </StyledContainer>
   );
 }
