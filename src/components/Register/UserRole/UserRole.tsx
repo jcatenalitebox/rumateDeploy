@@ -1,10 +1,22 @@
 import { styled, Card, CardContent, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-import RumieSignUpImage from '../../assets/rumie-sign-up.svg';
-import HostieSignUpImage from '../../assets/hostie-sign-up.svg';
+import RumieSignUpImage from '@/assets/rumie-sign-up.svg';
+import HostieSignUpImage from '@/assets/hostie-sign-up.svg';
 import Image from 'next/image';
 import MobileHeader from '@/components/Common/MobileHeader';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSteps } from '@/hooks/useSteps';
+
+const CARDS_DATA = [
+  {
+    title: 'Hostie',
+    image: HostieSignUpImage,
+  },
+  {
+    title: 'Rumie',
+    image: RumieSignUpImage,
+  },
+];
 
 const StyledWrapper = styled(motion.div)`
   display: flex;
@@ -66,32 +78,39 @@ const StyledImageWrapper = styled('div')`
   }
 `;
 
-function SignUpPage() {
+function UserRole() {
+  const { nextStep } = useSteps();
+
   return (
     <StyledWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <MobileHeader title='Elegí tu perfil' />
       <StyledCardWrapper>
-        <StyledCard>
-          <StyledImageWrapper title='hostie sign up image'>
-            <Image src={HostieSignUpImage} alt='hostie sign up image' />
-          </StyledImageWrapper>
-          <StyledCardContent>
-            <StyledTypography>Hostie</StyledTypography>
-            <StyledIconButton />
-          </StyledCardContent>
-        </StyledCard>
-        <StyledCard>
-          <StyledImageWrapper title='rumie sign up image'>
-            <Image src={RumieSignUpImage} alt='hostie sign up image' />
-          </StyledImageWrapper>
-          <StyledCardContent>
-            <StyledTypography>Rumie</StyledTypography>
-            <StyledIconButton />
-          </StyledCardContent>
-        </StyledCard>
+        {CARDS_DATA.map((card, index) => (
+          <motion.div
+            key={card.title}
+            initial={{
+              y: 50,
+            }}
+            whileInView={{
+              y: 0,
+              transition: {
+                duration: 0.5 + index * 0.3,
+              },
+            }}>
+            <StyledCard onClick={nextStep}>
+              <StyledImageWrapper title={`${card.title} sign up image`}>
+                <Image src={card.image} alt={`${card.title} sign up image`} />
+              </StyledImageWrapper>
+              <StyledCardContent>
+                <StyledTypography>{card.title}</StyledTypography>
+                <StyledIconButton />
+              </StyledCardContent>
+            </StyledCard>
+          </motion.div>
+        ))}
       </StyledCardWrapper>
     </StyledWrapper>
   );
 }
 
-export default SignUpPage;
+export default UserRole;
