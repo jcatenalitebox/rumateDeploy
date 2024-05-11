@@ -7,6 +7,9 @@ import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
 import RumieEmptyState from '@/components/Common/RumieEmptyState';
+import { useEffect } from 'react';
+import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
+import { useMemo, useState } from 'react';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -34,33 +37,36 @@ const StyledResultsText = styled(Typography)`
 `;
 
 function RumiePage() {
-  // const [search, setSearch] = useState([] as string[]);
-  // const [city, setCity] = useState('All' as string);
+  const [search, setSearch] = useState('');
 
-  // const cities = Array.from(new Set(APARTMENTS_DATA.map((apartment) => apartment.city)) as Set<string>);
+  const handleSearch = (value: string) => {
+    setSearch(value);
+  };
 
-  // const handleSearch = (values: string[]) => {
-  //   setSearch(values);
-  // };
+  const filteredItems = useMemo(() => {
+    if (search === '') return APARTMENTS_DATA;
 
-  // const handleDropdown = (event: any) => {
-  //   setCity(event.target.value);
-  // };
+    const filteredData = APARTMENTS_DATA.filter((apartment) => {
+      const stylizedState = apartment.state.toUpperCase();
+      const stylizedCity = apartment.city.toUpperCase();
 
-  // const filteredItems = useMemo(() => {
-  //   if (search.length === 0 && city === 'All') return APARTMENTS_DATA;
+      return stylizedState.includes(search.toUpperCase()) || stylizedCity.includes(search.toUpperCase());
+    });
 
-  //   const filteredData = APARTMENTS_DATA.filter((apartment) => {
-  //     const stylizedCity = apartment.city.toUpperCase();
+    return filteredData;
+  }, [search]);
 
-  //     return (
-  //       (city === 'All' || apartment.city === city) &&
-  //       (search.length === 0 || search.some((value) => stylizedCity.includes(value.toUpperCase())))
-  //     );
-  //   });
-
-  //   return filteredData;
-  // }, [search, city]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = localStorage.getItem('user');
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
+        searchForCoincidences(res.data?.id).then((res) => {
+          console.log(res);
+        });
+      });
+    };
+    fetchData();
+  }, []);
 
   return (
     <StyledContainer>
@@ -81,11 +87,12 @@ function RumiePage() {
               </InputAdornment>
             ),
           }}
+          onChange={(e) => handleSearch(e.target.value)}
         />
-        <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
+        <StyledResultsText variant='h4'>{`Resultados ${filteredItems.length}`}</StyledResultsText>
       </StyledInputWrapper>
       {APARTMENTS_DATA.length > 0 ? (
-        APARTMENTS_DATA.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
+        filteredItems.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
       ) : (
         <RumieEmptyState />
       )}
