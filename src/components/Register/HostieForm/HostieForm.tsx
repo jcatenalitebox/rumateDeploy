@@ -90,11 +90,10 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
       return obj;
     };
     const valuesMappedClean = removeUndefined(valuesMapped);
-    // console.log('hola', valuesMappedClean);
-    registerUser(valuesMappedClean);
-    //   .then((res) => {
-    //     console.log('User registered', res);
-    //   })
+    // console.log('hola', valuesMappedClean)
+    registerUser(valuesMappedClean).then((res) => {
+      console.log('User registered', res);
+    });
     //   .catch((err) => {
     //     console.log('Error registering user', err);
     //   });

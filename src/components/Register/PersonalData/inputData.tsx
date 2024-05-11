@@ -34,13 +34,13 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
     placeholder: 'Contraseña',
     isRequired: true,
   },
-  {
-    label: 'Repetir Contraseña',
-    id: 'repeatPassword',
-    type: InputEnum.TEXT,
-    placeholder: 'Contraseña',
-    isRequired: true,
-  },
+  // {
+  //   label: 'Repetir Contraseña',
+  //   id: 'repeatPassword',
+  //   type: InputEnum.TEXT,
+  //   placeholder: 'Contraseña',
+  //   isRequired: true,
+  // },
   {
     label: 'Fecha de nacimiento',
     id: 'birthDate',
@@ -90,56 +90,56 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
       },
     ],
   },
-  {
-    label: 'Código postal',
-    id: 'cp',
-    type: InputEnum.TEXT,
-    placeholder: 'Codigo postal',
-    isRequired: true,
-  },
-  {
-    label: 'Teléfono',
-    id: 'phone',
-    type: InputEnum.TEXT,
-    placeholder: 'Teléfono',
-    isRequired: true,
-  },
-  {
-    label: 'Nacionalidad',
-    id: 'nationality',
-    type: InputEnum.DROPDOWN,
-    isRequired: true,
-    options: [
-      {
-        id: 'arg',
-        label: 'Argentina',
-      },
-      {
-        id: 'uy',
-        label: 'Uruguay',
-      },
-      {
-        id: 'cl',
-        label: 'Chile',
-      },
-    ],
-  },
-  {
-    label: 'Idiomas',
-    id: 'language',
-    type: InputEnum.DROPDOWN,
-    isRequired: true,
-    options: [
-      {
-        id: 'es',
-        label: 'Español',
-      },
-      {
-        id: 'en',
-        label: 'Inglés',
-      },
-    ],
-  },
+  // {
+  //   label: 'Código postal',
+  //   id: 'cp',
+  //   type: InputEnum.TEXT,
+  //   placeholder: 'Codigo postal',
+  //   isRequired: true,
+  // },
+  // {
+  //   label: 'Teléfono',
+  //   id: 'phone',
+  //   type: InputEnum.TEXT,
+  //   placeholder: 'Teléfono',
+  //   isRequired: true,
+  // },
+  // {
+  //   label: 'Nacionalidad',
+  //   id: 'nationality',
+  //   type: InputEnum.DROPDOWN,
+  //   isRequired: true,
+  //   options: [
+  //     {
+  //       id: 'arg',
+  //       label: 'Argentina',
+  //     },
+  //     {
+  //       id: 'uy',
+  //       label: 'Uruguay',
+  //     },
+  //     {
+  //       id: 'cl',
+  //       label: 'Chile',
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Idiomas',
+  //   id: 'language',
+  //   type: InputEnum.DROPDOWN,
+  //   isRequired: true,
+  //   options: [
+  //     {
+  //       id: 'es',
+  //       label: 'Español',
+  //     },
+  //     {
+  //       id: 'en',
+  //       label: 'Inglés',
+  //     },
+  //   ],
+  // },
   {
     label: 'Género',
     id: 'genre',
@@ -160,50 +160,50 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
       },
     ],
   },
-  {
-    label: 'Ocupación',
-    id: 'ocupation',
-    type: InputEnum.DROPDOWN,
-    isRequired: true,
-    isHalfWidth: true,
-    options: [
-      {
-        id: 'empleado',
-        label: 'Empleado',
-      },
-      {
-        id: 'estudiante',
-        label: 'Estudiante',
-      },
-      {
-        id: 'desempleado',
-        label: 'Desempleado',
-      },
-    ],
-  },
-  {
-    label: 'Detalle',
-    id: 'detail',
-    type: InputEnum.TEXT,
-    isRequired: true,
-    isHalfWidth: true,
-  },
-  {
-    label: '¿Tenés hijos?',
-    id: 'kids',
-    type: InputEnum.DROPDOWN,
-    isRequired: true,
-    options: [
-      {
-        id: 'yes',
-        label: 'Si',
-      },
-      {
-        id: 'no',
-        label: 'No',
-      },
-    ],
-  },
+  // {
+  //   label: 'Ocupación',
+  //   id: 'ocupation',
+  //   type: InputEnum.DROPDOWN,
+  //   isRequired: true,
+  //   isHalfWidth: true,
+  //   options: [
+  //     {
+  //       id: 'empleado',
+  //       label: 'Empleado',
+  //     },
+  //     {
+  //       id: 'estudiante',
+  //       label: 'Estudiante',
+  //     },
+  //     {
+  //       id: 'desempleado',
+  //       label: 'Desempleado',
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Detalle',
+  //   id: 'detail',
+  //   type: InputEnum.TEXT,
+  //   isRequired: true,
+  //   isHalfWidth: true,
+  // },
+  // {
+  //   label: '¿Tenés hijos?',
+  //   id: 'kids',
+  //   type: InputEnum.DROPDOWN,
+  //   isRequired: true,
+  //   options: [
+  //     {
+  //       id: 'yes',
+  //       label: 'Si',
+  //     },
+  //     {
+  //       id: 'no',
+  //       label: 'No',
+  //     },
+  //   ],
+  // },
 ];
 
 export const MORE_INFORMATION_INPUTS: InputType[] = [

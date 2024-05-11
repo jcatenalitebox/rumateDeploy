@@ -17,18 +17,18 @@ export type PersonalData = {
   personalData: {
     email: string;
     password: string;
-    repeatPassword: string;
+    // repeatPassword: string;
     birthDate: string;
     state: string;
     city: string;
-    cp: string;
-    phone: string;
-    nationality: string;
-    language: string;
+    // cp: string;
+    // phone: string;
+    // nationality: string;
+    // language: string;
     genre: string;
-    ocupation: string;
-    detail: string;
-    kids: string;
+    // ocupation: string;
+    // detail: string;
+    // kids: string;
   };
 };
 
@@ -92,7 +92,7 @@ const PersonalData = ({ signUpBaseNameForm }: Props) => {
     setValue(`${signUpBaseNameForm}.${currentStep}`, formValues);
   };
 
-  const isValid = true;
+  const isValid = form.formState.isValid;
   // form.formState.isValid;
   const currentStepIndex = steps.findIndex((step) => step === currentStep) || 0;
 
