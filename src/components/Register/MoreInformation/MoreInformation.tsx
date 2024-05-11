@@ -90,7 +90,7 @@ const MoreInformation = () => {
     },
   });
 
-  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'ROOM_DATA'];
+  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM'];
   const currentStepIndex = steps.findIndex((step) => step === currentStep) || 0;
 
   const isValid = true;

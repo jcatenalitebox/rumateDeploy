@@ -65,7 +65,7 @@ const PersonalData = () => {
     return { ...acc, [input.id]: input.defaultValue };
   }, {});
 
-  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'ROOM_DATA'];
+  const steps = ['PERSONAL_DATA', 'MORE_INFORMATION', 'HOSTIE_FORM'];
 
   const form = useForm<PersonalData>({
     resolver: yupResolver(personalDataSchema),

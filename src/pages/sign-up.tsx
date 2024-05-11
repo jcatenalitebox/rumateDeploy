@@ -11,7 +11,6 @@ enum SignUpStepsEnum {
   USER_ROLE = 'USER_ROLE',
   PERSONAL_DATA = 'PERSONAL_DATA',
   MORE_INFORMATION = 'MORE_INFORMATION',
-  ROOM_DATA = 'ROOM_DATA',
   HOSTIE_FORM = 'HOSTIE_FORM',
 }
 
@@ -23,7 +22,6 @@ const StepComponents: { [k in SignUpStepsEnum]: React.ComponentType<StepHandlerP
   [SignUpStepsEnum.USER_ROLE]: () => <UserRole />,
   [SignUpStepsEnum.PERSONAL_DATA]: () => <PersonalData />,
   [SignUpStepsEnum.MORE_INFORMATION]: () => <MoreInformation />,
-  [SignUpStepsEnum.ROOM_DATA]: () => <PersonalData />,
   [SignUpStepsEnum.HOSTIE_FORM]: () => <HostieForm />,
 };
 
