@@ -6,9 +6,10 @@ import React, { useContext } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
 import { AuthContext } from '@/context/AuthContext';
-import { signIn } from '../../../lib/firebase/actions';
+import { getUserByEmail, signIn } from '../../../lib/firebase/actions';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { UserRoleEnum } from '@/types';
 
 const StyledWrapper = styled(motion.div)``;
 
@@ -72,17 +73,20 @@ const LoginScreen = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const { dispatch } = useContext<any>(AuthContext);
-
   const router = useRouter();
+
+  const { dispatch } = useContext<any>(AuthContext);
 
   const handleLogin = () => {
     signIn(email, password, dispatch).then((res) => {
       if (res.success) {
-        return toast.success(res.message || 'Success');
-        router.push('/romie');
+        toast.success(res.message || 'Success');
+        getUserByEmail(email).then((res) => {
+          if (res.data === UserRoleEnum.RUMIE) return router.push('/rumie');
+          return router.push('/hostie');
+        });
       } else {
-        return toast.error(res.message || 'Error');
+        toast.error(res.message || 'Error');
       }
     });
   };

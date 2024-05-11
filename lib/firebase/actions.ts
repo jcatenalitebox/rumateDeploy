@@ -1,4 +1,15 @@
-import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  query,
+  where,
+} from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -80,12 +91,47 @@ export const getAllUsers = async () => {
   }
 };
 
+export const getUsersByRole = async (userRole: string) => {
+  let list: any = [];
+
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('userRole', '==', userRole));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { success: true, data: list };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
 export const getUserById = async (id: any) => {
   try {
     const docRef = await doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
 
     return { success: true, data: docSnap.data() };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const getUserByEmail = async (email: string) => {
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return { success: false, error: 'No user found' };
+    } else {
+      const user = querySnapshot.docs[0];
+      return { success: true, data: user.data().userRole };
+    }
   } catch (error) {
     return { success: false, error };
   }
