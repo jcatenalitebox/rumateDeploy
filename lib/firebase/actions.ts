@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -80,6 +80,18 @@ export const getUserById = async (id: any) => {
     const docSnap = await getDoc(docRef);
 
     return { success: true, data: docSnap.data() };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const addRuMatch = async (id: any, newRuMatch: string) => {
+  try {
+    const docRef = doc(db, 'users', id);
+
+    await updateDoc(docRef, { rumatches: arrayUnion(newRuMatch) });
+
+    return { success: true, message: 'Match added successfully' };
   } catch (error) {
     return { success: false, error };
   }

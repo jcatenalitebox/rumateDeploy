@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
       <StyledWrappe>
         <AuthContextProvider>
-          <div>contenido</div>
+          <div>Content</div>
         </AuthContextProvider>
       </StyledWrappe>
     </>
