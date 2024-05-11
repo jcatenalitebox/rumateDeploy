@@ -4,11 +4,6 @@ import { useController, useFieldArray } from 'react-hook-form';
 import handleInputRef from '@/utils/handleInputRef';
 import Checkbox from '../Checkbox/Checkbox';
 
-type Props = {
-  name: string;
-  options: { label: string; id: string }[];
-};
-
 const StyledListItem = styled(ListItem)`
   display: flex;
   padding: 4px 0;
@@ -19,6 +14,11 @@ const StyledListItem = styled(ListItem)`
 const StyledCheckbox = styled(Checkbox)`
   width: 100%;
 `;
+
+type Props = {
+  name: string;
+  options: { label: string; id: string }[];
+};
 
 const MultipleSelector = ({ name, options }: Props) => {
   const { fields, append, remove } = useFieldArray({ name });

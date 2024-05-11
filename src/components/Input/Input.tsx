@@ -10,7 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { InputProps as OriginalInputProps, TextField, TextFieldProps } from '@mui/material';
+import { InputProps as OriginalInputProps, styled, TextField, TextFieldProps } from '@mui/material';
 import { isFunction } from 'lodash';
 import {
   ControllerRenderProps,
@@ -24,6 +24,7 @@ import {
 import useInputError from '@/hooks/useInputError';
 import { ControllersProps } from '@/types';
 import handleInputRef from '@/utils/handleInputRef';
+import { transientOptions } from '@/utils/transientOptions';
 
 // import InputHelper from '../InputHelper';
 
@@ -50,6 +51,7 @@ type Props = Omit<TextFieldProps, 'InputProps'> &
     showError?: boolean;
     helperText?: ReactNode | string;
     maxLength?: number;
+    isHalfWidth?: boolean;
   };
 
 // const StyledHelperText = styled(InputHelper)`
@@ -58,6 +60,10 @@ type Props = Omit<TextFieldProps, 'InputProps'> &
 //   font-weight: 400;
 //   margin-top: 2px;
 // `;
+
+const StyledTextField = styled(TextField, transientOptions)<{ $isHalfWidth?: boolean }>`
+  width: ${({ $isHalfWidth }) => ($isHalfWidth ? '50%' : '100%')};
+`;
 
 const Input = (
   {
@@ -70,6 +76,7 @@ const Input = (
     onChange,
     onFocus,
     onBlur,
+    isHalfWidth,
     // supportingText,
     // isRequired,
     className,
@@ -156,7 +163,7 @@ const Input = (
   }, [handleOnFocus, handleOnBlur, ref]);
 
   return (
-    <TextField
+    <StyledTextField
       {...field}
       {...props}
       ref={ref || internalRef}
@@ -187,6 +194,7 @@ const Input = (
       onBlur={handleOnBlur}
       onChange={handleOnChange}
       onFocus={handleOnFocus}
+      $isHalfWidth={isHalfWidth}
     />
   );
 };
