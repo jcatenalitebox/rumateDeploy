@@ -1,5 +1,5 @@
 import { Box, Container, InputAdornment, TextField, Typography, styled } from '@mui/material';
-import { APARTMENTS_DATA } from './apartmentsData';
+import { APARTMENTS_DATA } from '@/utils/constants';
 import ApartmentCard from '@/components/Common/ApartmentCard';
 import SearchIcon from '@mui/icons-material/Search';
 import MobileHeader from '@/components/Common/MobileHeader';
