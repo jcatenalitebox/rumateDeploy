@@ -146,7 +146,7 @@ function HostiePage() {
       />
       <StyledSubWrapper>
         <StyledTitle variant='h2'>{`¡Hola ${ownCard?.name || ''}!`}</StyledTitle>
-        <ApartmentCard key={apartment.user_id} apartment={ownCard} />
+        <ApartmentCard key={apartment?.user_id} apartment={ownCard} />
         <StyledLikesWrapper>
           <StyledTabsWrapper>
             <Tabs value={value} onChange={handleChange}>
@@ -155,29 +155,45 @@ function HostiePage() {
             </Tabs>
           </StyledTabsWrapper>
 
-          {value === 0 && !cards.length && !isLoading && (
-            <StyledLikesContent sx={{ p: 3, height: 330 }}>
-              <StyledHangLooseMisc>
-                <HangLooseMisc />
-              </StyledHangLooseMisc>
-              <StyledCloudMiscTop>
-                <CloudMisc />
-              </StyledCloudMiscTop>
-              <StyledCloudMiscBottom>
-                <CloudMisc />
-              </StyledCloudMiscBottom>
-              <StyledLikesTitle variant='h2'>¡Aún no hay likes!</StyledLikesTitle>
-              <Typography textAlign={'center'} fontSize={14}>
-                Parece que tu publicación aún no ha recibido ningún like. ¡No te preocupes! Es normal que al principio
-                cueste un poco arrancar.
-              </Typography>
-            </StyledLikesContent>
-          )}
+          <StyledLikesContent sx={{ p: 0 }}>
+            {value === 0 && !cards.length && !isLoading && (
+              <>
+                <StyledHangLooseMisc>
+                  <HangLooseMisc />
+                </StyledHangLooseMisc>
+                <StyledCloudMiscTop>
+                  <CloudMisc />
+                </StyledCloudMiscTop>
+                <StyledCloudMiscBottom>
+                  <CloudMisc />
+                </StyledCloudMiscBottom>
+                <StyledLikesTitle variant='h2'>¡Aún no hay likes!</StyledLikesTitle>
+                <Typography textAlign={'center'} fontSize={14}>
+                  Parece que tu publicación aún no ha recibido ningún like. ¡No te preocupes! Es normal que al principio
+                  cueste un poco arrancar.
+                </Typography>
+              </>
+            )}
 
-          {value === 0 && (cards as any[]).map((card) => <ApartmentCard key={card?.user_id} apartment={card} />)}
+            {value === 0 && (
+              <Box
+                sx={{
+                  p: 0,
+                  maxHeight: '300px',
+                  overflow: 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}>
+                {(cards as any[]).map((card) => (
+                  <ApartmentCard key={card?.user_id} apartment={card} displayImage={false} />
+                ))}
+              </Box>
+            )}
+          </StyledLikesContent>
 
           {value === 1 && (
-            <Box sx={{ p: 3, height: 330 }}>
+            <Box sx={{ p: 0 }}>
               <Typography>Item Two</Typography>
             </Box>
           )}

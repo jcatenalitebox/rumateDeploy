@@ -186,7 +186,7 @@ const PROPS = [
   ADITIONAL_PROPERTIES.SCARF,
 ];
 
-const NUMBER_OF_COINCIDENCES = 4;
+const NUMBER_OF_COINCIDENCES = 2;
 
 export const searchForCoincidences = async (id: any) => {
   try {

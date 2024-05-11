@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 const StyledCard = styled(Card)`
   min-width: 380px;
   max-width: 100%;
+  min-height: 100px;
   cursor: pointer;
 
   &:hover {
@@ -56,19 +57,20 @@ const StyledBottomWrapper = styled(Box)`
 
 type Props = {
   apartment: any;
+  displayImage?: boolean;
 };
 
-const ApartmentCard = ({ apartment }: Props) => {
+const ApartmentCard = ({ apartment, displayImage = true }: Props) => {
   const router = useRouter();
   return (
     <StyledCard key={apartment?.user_id}>
-      <CardMedia
-        sx={{ height: 165 }}
-        image={
-          'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        }
-        title='apartment image'
-      />
+      {displayImage && (
+        <CardMedia
+          sx={{ height: 165 }}
+          image='https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          title='apartment image'
+        />
+      )}
       <CardContent>
         <StyledTitleWrapper>
           <Typography variant='h5'>{apartment?.name}</Typography>
@@ -83,7 +85,7 @@ const ApartmentCard = ({ apartment }: Props) => {
         </StyledTopRow>
         <Typography>{apartment?.apartment_price}</Typography>
         <StyledBottomWrapper>
-          {router.pathname === '/hostie' ? <PencilMisc /> : <ArrowForwardIcon />}
+          {router.pathname === '/hostie' && displayImage ? <PencilMisc /> : <ArrowForwardIcon />}
         </StyledBottomWrapper>
       </CardContent>
     </StyledCard>
