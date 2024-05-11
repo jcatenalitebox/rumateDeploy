@@ -1,4 +1,15 @@
-import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  query,
+  where,
+} from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -69,6 +80,24 @@ export const getAllUsers = async () => {
 
   try {
     const querySnapshot = await getDocs(collection(db, 'users'));
+
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { success: true, data: list };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const getUsersByRole = async (userRole: string) => {
+  let list: any = [];
+
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('userRole', '==', userRole));
+    const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
       list.push({ id: doc.id, ...doc.data() });
