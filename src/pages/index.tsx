@@ -3,6 +3,7 @@ import { Box, styled } from '@mui/material';
 
 import DummyLogin from '@/DummyLogin/DummyLogin';
 import DummyRegister from '@/DummyLogin/DummyRegister';
+import GetDummyData from '@/DummyLogin/GetDummyData';
 
 import { AuthContextProvider } from '../context/AuthContext';
 
@@ -23,6 +24,7 @@ export default function Home() {
         <AuthContextProvider>
           <DummyLogin />
           <DummyRegister />
+          <GetDummyData />
         </AuthContextProvider>
       </StyledWrappe>
     </>
