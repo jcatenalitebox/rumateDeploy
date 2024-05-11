@@ -1,11 +1,13 @@
+import AuthAction from './AuthAction';
+
 const AuthReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case AuthAction.LOGIN:
       return {
         ...state,
         currentUser: action.payload,
       };
-    case 'LOGOUT':
+    case AuthAction.LOGOUT:
       return {
         ...state,
         currentUser: null,
