@@ -14,6 +14,7 @@ import { MORE_INFORMATION_INPUTS, MORE_INFORMATION_INPUTS_EXTRA } from './moreIn
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
 import { registerUser } from '../../../../lib/firebase/actions';
+import Loader from '@/components/Loader';
 
 const formBaseName = 'moreInformation';
 
@@ -88,6 +89,7 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
   const [showMore, setShowMore] = useState<boolean>(false);
   const { setValue } = useFormContext();
   const parentForm = useWatch({ name: signUpBaseNameForm });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const defaultValues = MORE_INFORMATION_INPUTS.reduce((acc, input) => {
     return { ...acc, [input.id]: input.defaultValue };
@@ -105,8 +107,11 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
 
   const isRumie = userRole === UserRoleEnum.RUMIE;
 
+  const continueButtonLabel = isRumie ? 'Finalizar' : 'Siguiente';
+
   const handleOnClickNext = () => {
     setValue(`${signUpBaseNameForm}.${currentStep}`, values);
+    setIsLoading(true);
     if (isRumie) {
       const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
         return { ...acc, ...parentForm[key] };
@@ -116,13 +121,10 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
         return obj;
       };
       const valuesMappedClean = removeUndefined(valuesMapped);
-      registerUser(valuesMappedClean).then((res) => {
-        console.log('User registered', res);
+      registerUser(valuesMappedClean).then(() => {
+        setIsLoading(false);
         goToSucces();
       });
-      // .catch((err) => {
-      //   console.log('Error registering user', err);
-      // });
     } else {
       nextStep();
     }
@@ -182,7 +184,7 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
             Atrás
           </StyledBackButton>
           <StyledContinueButton disabled={!isValid} color='primary' variant='contained' onClick={handleOnClickNext}>
-            Siguiente
+            {isLoading ? <Loader size={20} /> : continueButtonLabel}
           </StyledContinueButton>
         </StyledInnerWrapper>
       </FooterDrawer>

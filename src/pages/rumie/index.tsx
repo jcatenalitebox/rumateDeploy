@@ -60,9 +60,7 @@ function RumiePage() {
     const fetchData = async () => {
       const user = localStorage.getItem('user');
       getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
-        searchForCoincidences(res.data?.id).then((res) => {
-          console.log(res);
-        });
+        searchForCoincidences(res.data?.id).then(() => {});
       });
     };
     fetchData();
