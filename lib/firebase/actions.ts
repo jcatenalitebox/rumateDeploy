@@ -147,7 +147,6 @@ export const searchForCoincidences = async (id: any) => {
 
     for (const user of users) {
       let matchCount = 0;
-
       for (const prop of PROPS) {
         if (user[prop] === initialUser[prop]) {
           matchCount++;
