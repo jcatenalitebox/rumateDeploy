@@ -1,10 +1,6 @@
 import Head from 'next/head';
 import { Box, styled } from '@mui/material';
 
-import DummyLogin from '@/DummyLogin/DummyLogin';
-import DummyRegister from '@/DummyLogin/DummyRegister';
-import GetDummyData from '@/DummyLogin/GetDummyData';
-
 import { AuthContextProvider } from '../context/AuthContext';
 
 const StyledWrappe = styled(Box)`
@@ -22,9 +18,7 @@ export default function Home() {
       </Head>
       <StyledWrappe>
         <AuthContextProvider>
-          <DummyLogin />
-          <DummyRegister />
-          <GetDummyData />
+          <div>contenido</div>
         </AuthContextProvider>
       </StyledWrappe>
     </>

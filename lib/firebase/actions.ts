@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -53,6 +53,33 @@ export const signIn = async (email: string, password: string, dispatch: any) => 
     dispatch({ type: AuthAction.LOGIN, payload: user });
 
     return { success: true, message: AUTH_SUCCESS_MESSAGE };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const getAllUsers = async () => {
+  let list: any = [];
+
+  try {
+    const querySnapshot = await getDocs(collection(db, 'users'));
+
+    querySnapshot.forEach((doc) => {
+      list.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { success: true, data: list };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const getUserById = async (id: any) => {
+  try {
+    const docRef = await doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+
+    return { success: true, data: docSnap.data() };
   } catch (error) {
     return { success: false, error };
   }
