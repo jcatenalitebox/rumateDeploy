@@ -1,15 +1,16 @@
 import { Box, Button, Divider, FormControlLabel, Step, StepLabel, Switch, Typography, styled } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSteps } from '@/hooks/useSteps';
 import { FormProvider, useForm } from 'react-hook-form';
 import MobileHeader from '@/components/Common/MobileHeader';
 import { StyledStepper } from '@/components/Common/StyledStepper/StyledStepper';
 import theme from '@/theme';
-import { MORE_INFORMATION_INPUTS } from '../PersonalData/inputData';
+// import { MORE_INFORMATION_INPUTS } from '../PersonalData/inputData';
 import StepIconComponent from '@/components/Common/StepIconComponent';
 import InputComponent from '@/components/InputComponent';
 import FooterDrawer from '@/components/FooterDrawer';
+import { MORE_INFORMATION_INPUTS, MORE_INFORMATION_INPUTS_EXTRA } from './moreInfoDataInput';
 
 const formBaseName = 'moreInformation';
 
@@ -77,6 +78,7 @@ const StyledContinueButton = styled(Button)`
 
 const MoreInformation = () => {
   const { currentStep, nextStep, prevStep } = useSteps();
+  const [showMore, setShowMore] = useState<boolean>(false);
 
   const defaultValues = MORE_INFORMATION_INPUTS.reduce((acc, input) => {
     return { ...acc, [input.id]: input.defaultValue };
@@ -117,15 +119,23 @@ const MoreInformation = () => {
         <StyledDivider />
         <StyledFormControlLabel
           value='activateExtraQuestions'
-          control={<StyledSwitch color='primary' />}
+          control={<StyledSwitch color='primary' onChange={() => setShowMore(!showMore)} />}
           label='Activar preguntas opcionales'
           labelPlacement='start'
         />
+        <StyledDescription variant='h4' fontWeight={400}>
+          Tené en cuenta que cuantás más preguntas respondas, mayor va a ser la posibilidad de encontrar a tu RuMate
+          perfecto.
+        </StyledDescription>
       </StyledExtraQuestionsWrapper>
-      <StyledDescription variant='h4' fontWeight={400}>
-        Tené en cuenta que cuantás más preguntas respondas, mayor va a ser la posibilidad de encontrar a tu RuMate
-        perfecto.
-      </StyledDescription>
+      {showMore && (
+        <StyledInputsWrapper>
+          {MORE_INFORMATION_INPUTS_EXTRA.map((input) => {
+            return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
+          })}
+        </StyledInputsWrapper>
+      )}
+
       <FooterDrawer>
         <StyledInnerWrapper>
           <StyledBackButton color='primary' variant='outlined' onClick={prevStep}>
@@ -141,3 +151,29 @@ const MoreInformation = () => {
 };
 
 export default MoreInformation;
+
+{
+  /* return (
+    <FormProvider {...form}>
+      <div>{currentStep}</div>
+      <StyledInputWrapper>
+        {MORE_INFORMATION_INPUTS.map((input) => {
+          return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
+        })}
+      </StyledInputWrapper>
+      {showMore ? (
+        <StyledInputWrapper>
+          {MORE_INFORMATION_INPUTS_EXTRA.map((input) => {
+            return <InputComponent key={input.id} baseName={formBaseName} {...input} />;
+          })}
+        </StyledInputWrapper>
+      ) : (
+        <Button variant='text' onClick={() => setShowMore(true)}>
+          Mas preguntas...
+        </Button>
+      )}
+
+      <Button color='primary' variant='contained' onClick={nextStep}>
+        Next Step
+      </Button> */
+}

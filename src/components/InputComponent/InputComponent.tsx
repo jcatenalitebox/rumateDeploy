@@ -6,6 +6,7 @@ import Input from '../Input/Input';
 import Select from '../Select';
 import MultipleSelector from '../MultipleSelector';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useWatch } from 'react-hook-form';
 
 const StyledWrapper = styled(Box)`
   display: flex;
@@ -18,11 +19,11 @@ const StyledVisibilityOutlinedIcon = styled(VisibilityOutlinedIcon)`
 
 type Props = { baseName: string; isHalfWidth?: boolean } & InputType;
 
-const InputComponent = ({ id, label, type, options, baseName, isHalfWidth }: Props) => {
-  const inputComponent = useMemo(() => {
-    const name = `${baseName}.${id}`;
-    // TODO showPassword state
+const InputComponent = ({ id, label, type, options, baseName, isHalfWidth, dependency, dependencyValue }: Props) => {
+  const name = `${baseName}.${id}`;
+  const value = useWatch({ name });
 
+  const inputComponent = useMemo(() => {
     return {
       [InputEnum.TEXT]: (
         <Input
@@ -44,11 +45,16 @@ const InputComponent = ({ id, label, type, options, baseName, isHalfWidth }: Pro
       [InputEnum.MULTI_SELECT]: options && <MultipleSelector name={name} options={options} />,
       [InputEnum.DATE]: <Input name={name} type='date' isHalfWidth={isHalfWidth} />,
     };
-  }, [baseName, id, isHalfWidth, label, options]);
+  }, [id, isHalfWidth, label, name, options]);
 
   const inputComponentType = inputComponent[type] || null;
 
-  return <StyledWrapper>{inputComponentType}</StyledWrapper>;
+  return (
+    <StyledWrapper>
+      {inputComponentType}
+      {dependency && value === dependencyValue && <InputComponent {...dependency} baseName={baseName} />}
+    </StyledWrapper>
+  );
 };
 
 export default InputComponent;
