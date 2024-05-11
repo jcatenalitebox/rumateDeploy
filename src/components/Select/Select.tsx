@@ -27,7 +27,6 @@ const Select = ({ options, name }: Props) => {
   return (
     <StyledAccordionDetails>
       <StyledDropdown onChange={(ds) => handleDropdown(ds)}>
-        <MenuItem value='All'>All</MenuItem>
         {options.map((option) => (
           <MenuItem key={option.id} value={option.label}>
             {option.label}
