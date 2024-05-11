@@ -110,7 +110,7 @@ function HostiePage() {
   useEffect(() => {
     const fetchData = async () => {
       const user = localStorage.getItem('user');
-      getUserByEmail(JSON.parse(user || '{}').email).then((res) => {
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
         searchForCoincidences(res.data?.id)
           .then((res) => {
             setCards(res?.data || []);
