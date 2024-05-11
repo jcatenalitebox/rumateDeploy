@@ -1,7 +1,8 @@
 export enum InputEnum {
   TEXT = 'TEXT',
+  NUMBER = 'NUMBER',
   DROPDOWN = 'DROPDOWN',
-  SINGLE_SELECT = 'SINGLE_SELECT',
+  MULTI_SELECT = 'MULTI_SELECT',
 }
 
 export type InputType = {
@@ -27,7 +28,7 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
   {
     label: 'Edad',
     id: 'age',
-    type: InputEnum.TEXT,
+    type: InputEnum.NUMBER,
     placeholder: 'Edad',
     isRequired: true,
   },
@@ -66,7 +67,7 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
   {
     id: 'kids',
     label: '¿Hijos?',
-    type: InputEnum.SINGLE_SELECT,
+    type: InputEnum.DROPDOWN,
     isRequired: true,
     options: [
       {
@@ -85,8 +86,8 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
   },
   {
     label: '¿Alquilas con alguien mas?',
-    id: 'renting-with-others',
-    type: InputEnum.SINGLE_SELECT,
+    id: 'others',
+    type: InputEnum.DROPDOWN,
     isRequired: true,
     options: [
       {

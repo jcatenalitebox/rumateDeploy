@@ -1,5 +1,5 @@
-import { Box, styled, Select as MUISelect } from '@mui/material';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { styled, Select as MUISelect, AccordionDetails, MenuItem, SelectChangeEvent } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
   label: string;
@@ -7,38 +7,34 @@ type Props = {
   options: { id: string; label: string }[];
 };
 
-const StyledWrapper = styled(Box)`
+const StyledAccordionDetails = styled(AccordionDetails)`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 `;
 
-const StyledInnerWrapper = styled(Box)`
-  display: flex;
-  flex-direction: column;
+const StyledDropdown = styled(MUISelect)`
+  width: 100%;
 `;
 
 const Select = ({ options, name }: Props) => {
   const { setValue } = useFormContext();
-  const value = useWatch({ name });
 
-  console.log('value', value);
+  const handleDropdown = (event: SelectChangeEvent<unknown>) => {
+    setValue(name, event.target.value as string, { shouldValidate: true });
+  };
 
   return (
-    <StyledWrapper>
-      <MUISelect label={value} value={value}>
-        <StyledInnerWrapper>
-          {options.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => {
-                setValue(name, option.label);
-              }}>
-              {option.label}
-            </button>
-          ))}
-        </StyledInnerWrapper>
-      </MUISelect>
-    </StyledWrapper>
+    <StyledAccordionDetails>
+      <StyledDropdown onChange={(ds) => handleDropdown(ds)}>
+        <MenuItem value='All'>All</MenuItem>
+        {options.map((option) => (
+          <MenuItem key={option.id} value={option.label}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </StyledDropdown>
+    </StyledAccordionDetails>
   );
 };
 

@@ -3,8 +3,8 @@ import { Box, styled } from '@mui/material';
 
 import { InputEnum, InputType } from '../Register/PersonalData/inputData';
 import Input from '../Input/Input';
-import RadioButtons from '../RadioButtons/RadioButtons';
 import Select from '../Select';
+import MultipleSelector from '../MultipleSelector';
 
 const StyledWrapper = styled(Box)`
   display: flex;
@@ -19,8 +19,9 @@ const InputComponent = ({ id, label, type, options, baseName }: Props) => {
 
     return {
       [InputEnum.TEXT]: <Input name={name} />,
+      [InputEnum.NUMBER]: <Input name={name} type='number' />,
       [InputEnum.DROPDOWN]: options && <Select label={label} name={name} options={options} />,
-      [InputEnum.SINGLE_SELECT]: options && <RadioButtons name={name} options={options} />,
+      [InputEnum.MULTI_SELECT]: options && <MultipleSelector name={name} options={options} />,
     };
   }, [baseName, id, label, options]);
 
