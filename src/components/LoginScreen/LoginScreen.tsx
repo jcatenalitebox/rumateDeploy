@@ -2,9 +2,12 @@ import LoginMisc from '@/assets/login-misc';
 import theme from '@/theme';
 import { Box, Button, InputAdornment, TextField, Typography, styled } from '@mui/material';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useContext } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import { AuthContext } from '@/context/AuthContext';
+import { signIn } from '../../../lib/firebase/actions';
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 
 const StyledWrapper = styled(motion.div)``;
@@ -66,10 +69,27 @@ const StyledSignUpText = styled(Typography)`
 `;
 
 const LoginScreen = () => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const { dispatch } = useContext<any>(AuthContext);
+
   const router = useRouter();
+
+  const handleLogin = () => {
+    signIn(email, password, dispatch).then((res) => {
+      if (res.success) {
+        return toast.success(res.message || 'Success');
+        router.push('/romie');
+      } else {
+        return toast.error(res.message || 'Error');
+      }
+    });
+  };
 
   return (
     <StyledWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <Toaster />
       <StyledTopMisc>
         <LoginMisc />
       </StyledTopMisc>
@@ -79,6 +99,7 @@ const LoginScreen = () => {
           <StyledInput
             label='Correo Electrónico'
             size='small'
+            onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -91,6 +112,7 @@ const LoginScreen = () => {
             label='Contraseña'
             size='small'
             type='password'
+            onChange={(e) => setPassword(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -105,7 +127,7 @@ const LoginScreen = () => {
         </StyledLink>
 
         {/* TODO add disabled state if no value on the input */}
-        <StyledConfirmButton variant='contained' onClick={() => router.push('/rumie')}>
+        <StyledConfirmButton variant='contained' onClick={handleLogin}>
           Iniciar Sesión
         </StyledConfirmButton>
         <StyledSignUpWrapper>

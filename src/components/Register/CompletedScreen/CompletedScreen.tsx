@@ -7,6 +7,8 @@ import YellowLinesMisc from '@/assets/yellow-lines-misc';
 import theme from '@/theme';
 import { Box, Typography, styled } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const StyledWrapper = styled(motion.div)`
   background: ${theme.palette.customColors.white};
@@ -126,6 +128,15 @@ const StyledPinkLines = styled(motion.div)`
 `;
 
 function CompletedScreen() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/hostie');
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <StyledWrapper initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
       <StyledSubWrapper>
