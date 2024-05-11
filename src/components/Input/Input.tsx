@@ -25,7 +25,13 @@ import useInputError from '@/hooks/useInputError';
 import { ControllersProps } from '@/types';
 import handleInputRef from '@/utils/handleInputRef';
 import { transientOptions } from '@/utils/transientOptions';
-
+import InputHelper from '../InputHelper';
+const StyledHelperText = styled(InputHelper)`
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  margin-top: 2px;
+`;
 // import InputHelper from '../InputHelper';
 
 export type FieldParamsType = {
@@ -77,13 +83,13 @@ const Input = (
     onFocus,
     onBlur,
     isHalfWidth,
-    // supportingText,
-    // isRequired,
+    supportingText,
+    isRequired,
     className,
-    // showError = true,
+    showError = true,
     maxLength,
-    // helperText,
-    // isUnavailable,
+    helperText,
+    isUnavailable,
     ...props
   }: Props,
   ref: ForwardedRef<HTMLInputElement>,
@@ -179,16 +185,16 @@ const Input = (
       }}
       className={className}
       error={!!error}
-      // helperText={
-      //   showError && (
-      //     <StyledHelperText
-      //       error={error || helperText}
-      //       helperText={supportingText}
-      //       isRequired={isRequired}
-      //       isUnavailable={isUnavailable}
-      //     />
-      //   )
-      // }
+      helperText={
+        showError && (
+          <StyledHelperText
+            error={error || helperText}
+            helperText={supportingText}
+            isRequired={isRequired}
+            isUnavailable={isUnavailable}
+          />
+        )
+      }
       inputRef={(_ref) => handleInputRef(_ref, field)}
       size='small'
       onBlur={handleOnBlur}

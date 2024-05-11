@@ -31,6 +31,7 @@ const InputComponent = ({ id, label, type, options, baseName, isHalfWidth, depen
           name={name}
           isHalfWidth={isHalfWidth}
           type={id === 'password' ? 'password' : 'text'}
+          validateFields={name}
           InputProps={{
             endAdornment:
               id === 'password' ? (
@@ -41,7 +42,9 @@ const InputComponent = ({ id, label, type, options, baseName, isHalfWidth, depen
           }}
         />
       ),
-      [InputEnum.NUMBER]: <Input label={label} name={name} type='number' isHalfWidth={isHalfWidth} />,
+      [InputEnum.NUMBER]: (
+        <Input label={label} name={name} type='number' isHalfWidth={isHalfWidth} validateFields={name} />
+      ),
       [InputEnum.DROPDOWN]: options && <Select label={label} name={name} options={options} isHalfWidth={isHalfWidth} />,
       [InputEnum.MULTI_SELECT]: options && <MultipleSelector name={name} options={options} />,
       [InputEnum.DATE]: <Input name={name} type='date' isHalfWidth={isHalfWidth} />,
