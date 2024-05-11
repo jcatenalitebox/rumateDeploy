@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 
 import { db, auth, storage } from '../firebase';
 
-import { AuthAction } from './enum';
+import { ADITIONAL_PROPERTIES, AuthAction } from './enum';
 import { AUTH_SUCCESS_MESSAGE, UPLOAD_SUCCESS_MESSAGE } from './constants';
 
 export const registerUser = async (userData: any) => {
@@ -21,8 +21,12 @@ export const registerUser = async (userData: any) => {
         timestamp: serverTimestamp(),
       });
 
-      return { success: true, docRef };
+      const docSnap = await getDoc(docRef);
+
+      return { success: true, data: docSnap.data() };
     }
+
+    // TODO: Preguntar si el usuario está en localstorage, si no está, lo guardo
 
     return { success: false };
   } catch (error) {
@@ -92,6 +96,65 @@ export const addRuMatch = async (id: any, newRuMatch: string) => {
     await updateDoc(docRef, { rumatches: arrayUnion(newRuMatch) });
 
     return { success: true, message: 'Match added successfully' };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const getRuMatches = async (id: any) => {
+  try {
+    const docRef = await doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) return { success: false, error: 'No user found' };
+    const rumatches = docSnap.data().rumatches;
+
+    const users = [];
+
+    for (const id of rumatches) {
+      const userDocRef = doc(db, 'users', id);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        users.push(userDocSnap.data());
+      }
+    }
+
+    return { success: true, data: users };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+const PROPS = [ADITIONAL_PROPERTIES.FUTBOL, ADITIONAL_PROPERTIES.POLITICA, ADITIONAL_PROPERTIES.MASCOTAS];
+
+export const searchForCoincidences = async (id: any) => {
+  try {
+    const userDocRef = doc(db, 'users', id);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (!userDocSnap.exists()) return { success: false, error: 'No user found' };
+    const initialUser = userDocSnap.data();
+
+    const usersRef = collection(db, 'users');
+    const querySnapshot = await getDocs(usersRef);
+
+    const users = querySnapshot.docs.filter((doc) => doc.id !== id).map((doc) => doc.data());
+
+    const matchedUsers = [];
+
+    for (const user of users) {
+      let matchCount = 0;
+
+      for (const prop of PROPS) {
+        if (user[prop] === initialUser[prop]) {
+          matchCount++;
+        }
+      }
+      if (matchCount >= 3) matchedUsers.push(user);
+    }
+
+    return { success: true, data: matchedUsers };
   } catch (error) {
     return { success: false, error };
   }
