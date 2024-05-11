@@ -7,6 +7,8 @@ import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
 import RumieEmptyState from '@/components/Common/RumieEmptyState';
+import { useEffect } from 'react';
+import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
 import { useMemo, useState } from 'react';
 
 const StyledContainer = styled(Container)`
@@ -53,6 +55,18 @@ function RumiePage() {
 
     return filteredData;
   }, [search]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = localStorage.getItem('user');
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
+        searchForCoincidences(res.data?.id).then((res) => {
+          console.log(res);
+        });
+      });
+    };
+    fetchData();
+  }, []);
 
   return (
     <StyledContainer>

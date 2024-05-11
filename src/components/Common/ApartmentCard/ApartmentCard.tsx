@@ -61,9 +61,15 @@ type Props = {
 const ApartmentCard = ({ apartment }: Props) => {
   const router = useRouter();
 
+  console.log({ apartment });
+
   return (
     <StyledCard key={apartment.user_id}>
-      <CardMedia sx={{ height: 165 }} image={apartment.picture_url} title='apartment image' />
+      <CardMedia
+        sx={{ height: 165 }}
+        image={apartment.picture_url || 'https://www.hotelnicolaas.nl/images/joomlart/demo/default.jpg'}
+        title='apartment image'
+      />
       <CardContent>
         <StyledTitleWrapper>
           <Typography variant='h5'>{apartment.user_name}</Typography>

@@ -4,7 +4,12 @@ export enum AuthAction {
 }
 
 export enum ADITIONAL_PROPERTIES {
-  FUTBOL = 'futbol',
-  POLITICA = 'politica',
-  MASCOTAS = 'mascotas',
+  CLEANLINESS = 'cleanliness',
+  LGBTIQFRIENDLY = 'lgbtiqFriendly',
+  MUSICIANFRIENDLY = 'musicianFriendly',
+  PETFRIENDLY = 'petFriendly',
+  POLITICALPREFERENCE = 'politicalPreference',
+  ZOMBIEAPOCALYPSE = 'zombieApocalypse',
+  SOCCERTEAMPREFERENCEDETAIL = 'soccerTeamPreferenceDetail',
+  SCARF = 'scarf',
 }

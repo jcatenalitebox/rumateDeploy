@@ -82,7 +82,7 @@ const LoginScreen = () => {
       if (res.success) {
         toast.success(res.message || 'Success');
         getUserByEmail(email).then((res) => {
-          if (res.data === UserRoleEnum.RUMIE) return router.push('/rumie');
+          if (res.data?.userRole === UserRoleEnum.RUMIE) return router.push('/rumie');
           return router.push('/hostie');
         });
       } else {

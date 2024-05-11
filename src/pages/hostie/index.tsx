@@ -5,10 +5,11 @@ import MobileHeader from '@/components/Common/MobileHeader';
 import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HangLooseMisc from '@/assets/hang-loose-misc';
 import { motion } from 'framer-motion';
 import { CloudMisc } from '@/assets';
+import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -99,10 +100,28 @@ const apartment = APARTMENTS_DATA[0];
 
 function HostiePage() {
   const [value, setValue] = useState(0);
+  const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = localStorage.getItem('user');
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
+        searchForCoincidences(res.data?.id)
+          .then((res) => {
+            setCards(res?.data || []);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      });
+    };
+    fetchData();
+  }, []);
 
   return (
     <StyledContainer>
@@ -123,7 +142,7 @@ function HostiePage() {
             </Tabs>
           </StyledTabsWrapper>
 
-          {value === 0 && (
+          {value === 0 && !cards.length && !isLoading && (
             <StyledLikesContent sx={{ p: 3, height: 330 }}>
               <StyledHangLooseMisc>
                 <HangLooseMisc />
@@ -141,6 +160,9 @@ function HostiePage() {
               </Typography>
             </StyledLikesContent>
           )}
+
+          {value === 0 && cards.map((card) => <ApartmentCard key={card.user_id} apartment={card} />)}
+
           {value === 1 && (
             <Box sx={{ p: 3, height: 330 }}>
               <Typography>Item Two</Typography>
