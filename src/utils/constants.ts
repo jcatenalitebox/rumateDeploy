@@ -33,7 +33,7 @@ export const APARTMENTS_DATA = [
     user_id: 4,
     user_name: 'Guillermo Perez',
     state: 'CABA',
-    city: 'Belgrano',
+    city: 'Palermo',
     address: 'Av. Sucre 2040',
     apartment_price: '$100.000 - $150.000 / mes',
     picture_url:
@@ -52,8 +52,8 @@ export const APARTMENTS_DATA = [
   {
     user_id: 6,
     user_name: 'María',
-    state: 'CABA',
-    city: 'Belgrano',
+    state: 'Buenos Aires',
+    city: 'Ezeiza',
     address: 'Av. Monroe 230',
     apartment_price: '$200.000 - $300.000 / mes',
     picture_url:
@@ -62,8 +62,8 @@ export const APARTMENTS_DATA = [
   {
     user_id: 7,
     user_name: 'Pedro',
-    state: 'CABA',
-    city: 'Belgrano',
+    state: 'Buenos Aires',
+    city: 'San Isidro',
     address: 'Av. Juramento 240',
     apartment_price: '$200.000 - $300.000 / mes',
     picture_url:
