@@ -60,27 +60,28 @@ type Props = {
 
 const ApartmentCard = ({ apartment }: Props) => {
   const router = useRouter();
-
   return (
-    <StyledCard key={apartment.user_id}>
+    <StyledCard key={apartment?.user_id}>
       <CardMedia
         sx={{ height: 165 }}
-        image={apartment.picture_url || 'https://www.hotelnicolaas.nl/images/joomlart/demo/default.jpg'}
+        image={
+          'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        }
         title='apartment image'
       />
       <CardContent>
         <StyledTitleWrapper>
-          <Typography variant='h5'>{apartment.user_name}</Typography>
+          <Typography variant='h5'>{apartment?.name}</Typography>
           <StyledReviewWrapper>
             <StarIcon />
             <StyledReviewScoreText>4.5</StyledReviewScoreText>
           </StyledReviewWrapper>
         </StyledTitleWrapper>
         <StyledTopRow>
-          <Typography>{apartment.state}</Typography>-<Typography>{apartment.city}</Typography>-
-          <Typography>{apartment.address}</Typography>
+          <Typography>{apartment?.state}</Typography>-<Typography>{apartment?.city}</Typography>-
+          <Typography>{apartment?.address}</Typography>
         </StyledTopRow>
-        <Typography>{apartment.apartment_price}</Typography>
+        <Typography>{apartment?.apartment_price}</Typography>
         <StyledBottomWrapper>
           {router.pathname === '/hostie' ? <PencilMisc /> : <ArrowForwardIcon />}
         </StyledBottomWrapper>

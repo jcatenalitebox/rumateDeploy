@@ -7,7 +7,7 @@ import RumateFeedHeaderIcon from '@/assets/rumateFeedHeaderIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from '@/theme';
 import RumieEmptyState from '@/components/Common/RumieEmptyState';
-import { Key, useEffect } from 'react';
+import { Key, useEffect, useMemo } from 'react';
 import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
 import { useState } from 'react';
 
@@ -47,10 +47,6 @@ function RumiePage() {
     setSearch(value);
   };
 
-  // const handleDropdown = (event: any) => {
-  //   setCity(event.target.value);
-  // };
-
   const filteredItems = useMemo(() => {
     if (search === '') return cards;
 
@@ -62,7 +58,7 @@ function RumiePage() {
     });
 
     return filteredData;
-  }, [search]);
+  }, [cards, search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +67,7 @@ function RumiePage() {
         searchForCoincidences(res.data?.id).then((res) => {
           setCards(res?.data || []);
         });
+        searchForCoincidences(res.data?.id).then(() => {});
       });
     };
     fetchData();
@@ -97,7 +94,7 @@ function RumiePage() {
           }}
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
+        <StyledResultsText variant='h4'>{`Resultados ${filteredItems.length}`}</StyledResultsText>
       </StyledInputWrapper>
       {filteredItems.length > 0 ? (
         filteredItems.map((apartment: { user_id: Key | null | undefined }) => (

@@ -10,6 +10,7 @@ import { getUserByEmail, signIn } from '../../../lib/firebase/actions';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { UserRoleEnum } from '@/types';
+import Loader from '../Loader';
 
 const StyledWrapper = styled(motion.div)``;
 
@@ -72,13 +73,16 @@ const StyledSignUpText = styled(Typography)`
 const LoginScreen = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const router = useRouter();
 
   const { dispatch } = useContext<any>(AuthContext);
 
   const handleLogin = () => {
+    setIsLoading(true);
     signIn(email, password, dispatch).then((res) => {
+      setIsLoading(false);
       if (res.success) {
         toast.success(res.message || 'Success');
         getUserByEmail(email).then((res) => {
@@ -132,7 +136,7 @@ const LoginScreen = () => {
 
         {/* TODO add disabled state if no value on the input */}
         <StyledConfirmButton variant='contained' onClick={handleLogin}>
-          Iniciar Sesión
+          {isLoading ? <Loader size={20} /> : 'Iniciar Sesión'}
         </StyledConfirmButton>
         <StyledSignUpWrapper>
           <Typography variant='subtitle1' lineHeight='20px'>

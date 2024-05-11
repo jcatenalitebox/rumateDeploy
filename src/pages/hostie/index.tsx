@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import HangLooseMisc from '@/assets/hang-loose-misc';
 import { motion } from 'framer-motion';
 import { CloudMisc } from '@/assets';
-import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
+import { getUserByEmail, getUserById, searchForCoincidences } from '../../../lib/firebase/actions';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -101,6 +101,7 @@ const apartment = APARTMENTS_DATA[0];
 function HostiePage() {
   const [value, setValue] = useState(0);
   const [cards, setCards] = useState<any>([]);
+  const [ownCard, setOwnCard] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -113,11 +114,23 @@ function HostiePage() {
       getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
         searchForCoincidences(res.data?.id)
           .then((res) => {
-            setCards(res?.data || []);
+            setCards((res?.data as any) || []);
           })
           .finally(() => {
             setIsLoading(false);
           });
+      });
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = localStorage.getItem('user');
+      getUserByEmail(JSON.parse(user || '{}')?.email).then((res) => {
+        getUserById(res.data?.id).then((res) => {
+          setOwnCard(res.data);
+        });
       });
     };
     fetchData();
@@ -132,8 +145,8 @@ function HostiePage() {
         onClickLeftComponent={() => {}}
       />
       <StyledSubWrapper>
-        <StyledTitle variant='h2'>{`¡Hola ${apartment.user_name}!`}</StyledTitle>
-        <ApartmentCard key={apartment.user_id} apartment={apartment} />
+        <StyledTitle variant='h2'>{`¡Hola ${ownCard?.name || ''}!`}</StyledTitle>
+        <ApartmentCard key={apartment.user_id} apartment={ownCard} />
         <StyledLikesWrapper>
           <StyledTabsWrapper>
             <Tabs value={value} onChange={handleChange}>
@@ -161,7 +174,7 @@ function HostiePage() {
             </StyledLikesContent>
           )}
 
-          {value === 0 && cards.map((card) => <ApartmentCard key={card.user_id} apartment={card} />)}
+          {value === 0 && (cards as any[]).map((card) => <ApartmentCard key={card?.user_id} apartment={card} />)}
 
           {value === 1 && (
             <Box sx={{ p: 3, height: 330 }}>

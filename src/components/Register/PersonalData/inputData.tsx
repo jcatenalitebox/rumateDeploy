@@ -4,7 +4,6 @@ export enum InputEnum {
   DROPDOWN = 'DROPDOWN',
   MULTI_SELECT = 'MULTI_SELECT',
   DATE = 'DATE',
-  FILE = 'FILE',
 }
 
 export type InputType = {
@@ -21,6 +20,13 @@ export type InputType = {
 };
 
 export const PERSONAL_DATA_INPUTS: InputType[] = [
+  {
+    label: 'Nombre completo',
+    id: 'name',
+    type: InputEnum.TEXT,
+    placeholder: 'Nombre completo',
+    isRequired: true,
+  },
   {
     label: 'Correo electrónico',
     id: 'email',
