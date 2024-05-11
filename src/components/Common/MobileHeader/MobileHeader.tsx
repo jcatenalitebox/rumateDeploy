@@ -10,6 +10,7 @@ const StyledWrapper = styled(Box)`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
+  position: relative;
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -23,27 +24,29 @@ const StyledArrowBackIosIcon = styled(ArrowBackIosIcon)`
 `;
 
 type Props = {
-  onClickBack?: () => void;
+  className?: string;
+  onClickLeftComponent?: () => void;
   title?: string;
+  leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
 };
 
-const MobileHeader = ({ onClickBack, title, rightComponent }: Props) => {
+const MobileHeader = ({ className, onClickLeftComponent, title, leftComponent, rightComponent }: Props) => {
   const router = useRouter();
 
   const handleOnClickBack = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (onClickBack) return onClickBack();
+    if (onClickLeftComponent) return onClickLeftComponent();
     router.back();
   };
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <StyledIconButton onClick={handleOnClickBack}>
-        <StyledArrowBackIosIcon color='inherit' />
+        {leftComponent || <StyledArrowBackIosIcon color='inherit' />}
       </StyledIconButton>
       <Typography variant='h1'>{title}</Typography>
-      <Box>{rightComponent}</Box>
+      {rightComponent ?? <div />}
     </StyledWrapper>
   );
 };

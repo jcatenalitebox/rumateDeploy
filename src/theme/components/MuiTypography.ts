@@ -25,6 +25,11 @@ const MuiTypography: Components<Omit<Theme, 'components'>>['MuiTypography'] = {
       fontWeight: 600,
       lineHeight: '20px',
     },
+    h5: {
+      fontSize: 18,
+      fontWeight: 600,
+      lineHeight: '26px',
+    },
     subtitle1: {
       fontSize: 14,
       fontWeight: 400,
@@ -36,9 +41,9 @@ const MuiTypography: Components<Omit<Theme, 'components'>>['MuiTypography'] = {
       lineHeight: '16px',
     },
     label: {
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: 400,
-      lineHeight: '16px',
+      lineHeight: '20px',
     },
   },
 };
