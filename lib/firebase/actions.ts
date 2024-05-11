@@ -120,6 +120,23 @@ export const getUserById = async (id: any) => {
   }
 };
 
+export const getUserByEmail = async (email: string) => {
+  try {
+    const usersRef = collection(db, 'users');
+    const q = query(usersRef, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return { success: false, error: 'No user found' };
+    } else {
+      const user = querySnapshot.docs[0];
+      return { success: true, data: user.data().userRole };
+    }
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
 export const addRuMatch = async (id: any, newRuMatch: string) => {
   try {
     const docRef = doc(db, 'users', id);
