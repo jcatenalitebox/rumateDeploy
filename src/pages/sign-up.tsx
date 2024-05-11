@@ -5,6 +5,7 @@ import { StepsProvider, useSteps } from '@/hooks/useSteps';
 import PersonalData from '@/components/Register/PersonalData';
 import MoreInformation from '@/components/Register/MoreInformation';
 import UserRole from '@/components/Register/UserRole';
+import CompletedScreen from '@/components/Register/CompletedScreen';
 import HostieForm from '@/components/Register/HostieForm';
 
 enum SignUpStepsEnum {
@@ -12,6 +13,7 @@ enum SignUpStepsEnum {
   PERSONAL_DATA = 'PERSONAL_DATA',
   MORE_INFORMATION = 'MORE_INFORMATION',
   HOSTIE_FORM = 'HOSTIE_FORM',
+  COMPLETED_SCREEN = 'COMPLETED_SCREEN',
 }
 
 type SignUpSteps = SignUpStepsEnum[];
@@ -23,6 +25,7 @@ const StepComponents: { [k in SignUpStepsEnum]: React.ComponentType<StepHandlerP
   [SignUpStepsEnum.PERSONAL_DATA]: () => <PersonalData />,
   [SignUpStepsEnum.MORE_INFORMATION]: () => <MoreInformation />,
   [SignUpStepsEnum.HOSTIE_FORM]: () => <HostieForm />,
+  [SignUpStepsEnum.COMPLETED_SCREEN]: () => <CompletedScreen />,
 };
 
 type StepHandlerProps = {

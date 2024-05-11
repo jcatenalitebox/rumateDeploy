@@ -2,7 +2,13 @@ import { transientOptions } from '@/utils/transientOptions';
 import { styled, Select as MUISelect, MenuItem, SelectChangeEvent, InputLabel, FormControl } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 
-const StyledInputLabel = styled(InputLabel)``;
+const StyledInputLabel = styled(InputLabel)`
+  top: -7px;
+
+  &.Mui-focused {
+    top: 2px;
+  }
+`;
 
 const StyledDropdown = styled(MUISelect, transientOptions)<{ $isHalfWidth?: boolean }>`
   width: ${({ $isHalfWidth }) => ($isHalfWidth ? '50%' : '100%')};
