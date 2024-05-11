@@ -13,6 +13,7 @@ import FooterDrawer from '@/components/FooterDrawer';
 import { MORE_INFORMATION_INPUTS, MORE_INFORMATION_INPUTS_EXTRA } from './moreInfoDataInput';
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
+import { registerUser } from '../../../../lib/firebase/actions';
 
 const formBaseName = 'moreInformation';
 
@@ -110,7 +111,18 @@ const MoreInformation = ({ signUpBaseNameForm }: Props) => {
       const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
         return { ...acc, ...parentForm[key] };
       }, {});
-      console.log('send form', valuesMapped);
+      const removeUndefined = (obj: any) => {
+        Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
+        return obj;
+      };
+      const valuesMappedClean = removeUndefined(valuesMapped);
+      registerUser(valuesMappedClean);
+      // .then((res) => {
+      //   console.log('User registered', res);
+      // })
+      // .catch((err) => {
+      //   console.log('Error registering user', err);
+      // });
     } else {
       nextStep();
     }

@@ -12,6 +12,7 @@ import StepIconComponent from '@/components/Common/StepIconComponent';
 import FooterDrawer from '@/components/FooterDrawer';
 import { useUserRole } from '@/hooks/useUserRole';
 import { UserRoleEnum } from '@/types';
+import { registerUser } from '../../../../lib/firebase/actions';
 
 const StyledInputsWrapper = styled(Box)`
   ${theme.mixins.layout};
@@ -84,7 +85,19 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
     const valuesMapped = Object.keys(parentForm).reduce((acc, key) => {
       return { ...acc, ...parentForm[key] };
     }, {});
-    console.log('hola', valuesMapped);
+    const removeUndefined = (obj: any) => {
+      Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
+      return obj;
+    };
+    const valuesMappedClean = removeUndefined(valuesMapped);
+    // console.log('hola', valuesMappedClean);
+    registerUser(valuesMappedClean);
+    //   .then((res) => {
+    //     console.log('User registered', res);
+    //   })
+    //   .catch((err) => {
+    //     console.log('Error registering user', err);
+    //   });
   };
 
   const isValid = form.formState.isValid;
