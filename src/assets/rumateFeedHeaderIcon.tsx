@@ -2,28 +2,29 @@ type Props = {
   width?: number;
   height?: number;
   fill?: string;
+  stroke?: string;
 };
 
-const RumateFeedHeaderIcon = ({ width = 36, height = 36 }: Props) => {
+const RumateFeedHeaderIcon = ({ width = 36, height = 36, fill = '#FFE45E', stroke = '#031426' }: Props) => {
   return (
-    <svg width={width} height={height} viewBox='0 0 36 36' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width={width} height={height} viewBox='0 0 36 36' fill={fill} xmlns='http://www.w3.org/2000/svg'>
       <g filter='url(#filter0_d_28_32859)'>
-        <circle cx='18' cy='17' r='16' fill='#FFE45E' />
+        <circle cx='18' cy='17' r='16' fill={fill} />
         <path
           d='M9.01922 16.7889C11.3421 20.4823 15.0903 25.9233 24.7632 20.4823'
-          stroke='#031426'
+          stroke={stroke}
           stroke-width='2'
           stroke-linecap='round'
         />
         <path
           d='M26.3454 16.2978C25.8111 14.7677 24.0081 12.3251 21.0699 14.795'
-          stroke='#031426'
+          stroke={stroke}
           stroke-width='2'
           stroke-linecap='round'
         />
         <path
           d='M17.0336 12.5971C16.4994 11.0671 14.6963 8.62445 11.7582 11.0944'
-          stroke='#031426'
+          stroke={stroke}
           stroke-width='2'
           stroke-linecap='round'
         />
