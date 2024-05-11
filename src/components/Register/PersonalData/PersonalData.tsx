@@ -15,6 +15,7 @@ import { UserRoleEnum } from '@/types';
 
 export type PersonalData = {
   personalData: {
+    name: string;
     email: string;
     password: string;
     // repeatPassword: string;
