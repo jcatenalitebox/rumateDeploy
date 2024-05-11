@@ -6,7 +6,7 @@ import YellowHandMisc from '@/assets/yellow-hand-misc';
 import YellowLinesMisc from '@/assets/yellow-lines-misc';
 import theme from '@/theme';
 import { Box, Typography, styled } from '@mui/material';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -138,98 +138,96 @@ function CompletedScreen() {
   }, [router]);
 
   return (
-    <AnimatePresence>
-      <StyledWrapper initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
-        <StyledSubWrapper>
-          <StyledTitleAnimationWrapper
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}>
-            <StyledTitle>¡Completaste el registro&nbsp;éxitosamente!</StyledTitle>
-          </StyledTitleAnimationWrapper>
+    <StyledWrapper initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+      <StyledSubWrapper>
+        <StyledTitleAnimationWrapper
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}>
+          <StyledTitle>¡Completaste el registro&nbsp;éxitosamente!</StyledTitle>
+        </StyledTitleAnimationWrapper>
 
-          <StyledCloudMiscTop
-            animate={{
-              x: -50,
-              y: 0,
-              scale: 1,
-              rotate: 0,
-            }}>
-            <CloudMisc />
-          </StyledCloudMiscTop>
-          <StyledCloudMiscBottom
-            animate={{
-              x: 50,
-              y: 0,
-              scale: 1,
-              rotate: 0,
-            }}>
-            <CloudMisc />
-          </StyledCloudMiscBottom>
-          <StyledBirdMiscLeft
-            animate={{
-              x: 0,
-              y: -50,
-              scale: 1,
-              rotate: 0,
-            }}>
-            <BirdMisc />
-          </StyledBirdMiscLeft>
-          <StyledBirdMiscRight
-            animate={{
-              x: 0,
-              y: -50,
-              scale: 1,
-              rotate: 0,
-            }}>
-            <BirdMisc />
-          </StyledBirdMiscRight>
-        </StyledSubWrapper>
-        <StyledYellowHand
+        <StyledCloudMiscTop
           animate={{
-            x: 100,
+            x: -50,
             y: 0,
             scale: 1,
             rotate: 0,
-          }}
-          transition={{ duration: 0.4 }}>
-          <YellowHandMisc />
-        </StyledYellowHand>
-        <StyledYellowLines
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}>
-          <YellowLinesMisc />
-        </StyledYellowLines>
-        <StyledPinkHand
+          }}>
+          <CloudMisc />
+        </StyledCloudMiscTop>
+        <StyledCloudMiscBottom
           animate={{
-            x: -100,
+            x: 50,
             y: 0,
             scale: 1,
             rotate: 0,
-          }}
-          transition={{ duration: 0.4 }}>
-          <PinkHandMisc />
-        </StyledPinkHand>
-        <StyledPinkLines
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}>
-          <PinkLinesMisc />
-        </StyledPinkLines>
-
-        <StyledSemiCircleMisc
+          }}>
+          <CloudMisc />
+        </StyledCloudMiscBottom>
+        <StyledBirdMiscLeft
           animate={{
             x: 0,
             y: -50,
             scale: 1,
             rotate: 0,
-          }}
-          transition={{ duration: 0.8 }}>
-          <SemiCircleMisc />
-        </StyledSemiCircleMisc>
-      </StyledWrapper>
-    </AnimatePresence>
+          }}>
+          <BirdMisc />
+        </StyledBirdMiscLeft>
+        <StyledBirdMiscRight
+          animate={{
+            x: 0,
+            y: -50,
+            scale: 1,
+            rotate: 0,
+          }}>
+          <BirdMisc />
+        </StyledBirdMiscRight>
+      </StyledSubWrapper>
+      <StyledYellowHand
+        animate={{
+          x: 100,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+        }}
+        transition={{ duration: 0.4 }}>
+        <YellowHandMisc />
+      </StyledYellowHand>
+      <StyledYellowLines
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7 }}>
+        <YellowLinesMisc />
+      </StyledYellowLines>
+      <StyledPinkHand
+        animate={{
+          x: -100,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+        }}
+        transition={{ duration: 0.4 }}>
+        <PinkHandMisc />
+      </StyledPinkHand>
+      <StyledPinkLines
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7 }}>
+        <PinkLinesMisc />
+      </StyledPinkLines>
+
+      <StyledSemiCircleMisc
+        animate={{
+          x: 0,
+          y: -50,
+          scale: 1,
+          rotate: 0,
+        }}
+        transition={{ duration: 0.8 }}>
+        <SemiCircleMisc />
+      </StyledSemiCircleMisc>
+    </StyledWrapper>
   );
 }
 

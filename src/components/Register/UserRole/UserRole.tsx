@@ -6,15 +6,20 @@ import Image from 'next/image';
 import MobileHeader from '@/components/Common/MobileHeader';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useSteps } from '@/hooks/useSteps';
+import { UserRoleEnum } from '@/types';
+import { useFormContext } from 'react-hook-form';
+import { useUserRole } from '@/hooks/useUserRole';
 
 const CARDS_DATA = [
   {
     title: 'Hostie',
     image: HostieSignUpImage,
+    role: UserRoleEnum.HOSTIE,
   },
   {
     title: 'Rumie',
     image: RumieSignUpImage,
+    role: UserRoleEnum.RUMIE,
   },
 ];
 
@@ -81,8 +86,20 @@ const StyledImageWrapper = styled('div')`
   }
 `;
 
-function UserRole() {
+type Props = {
+  signUpBaseNameForm: string;
+};
+
+function UserRole({ signUpBaseNameForm }: Props) {
   const { nextStep } = useSteps();
+  const { setValue } = useFormContext();
+  const { setUserRole } = useUserRole();
+
+  const handleOnClickCard = (userType: UserRoleEnum) => {
+    nextStep();
+    setValue(`${signUpBaseNameForm}.firstStep.userRole`, userType);
+    setUserRole(userType);
+  };
 
   return (
     <StyledWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -100,7 +117,7 @@ function UserRole() {
                 duration: 0.5 + index * 0.3,
               },
             }}>
-            <StyledCard onClick={nextStep}>
+            <StyledCard onClick={() => handleOnClickCard(card.role)}>
               <StyledImageWrapper title={`${card.title} sign up image`}>
                 <Image src={card.image} alt={`${card.title} sign up image`} />
               </StyledImageWrapper>

@@ -1,11 +1,13 @@
 import StarIcon from '@/assets/star-icon';
 import { Box, Card, CardContent, CardMedia, Typography, styled } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PencilMisc from '@/assets/pencil-misc';
 import theme from '@/theme';
+import { useRouter } from 'next/router';
 
 const StyledCard = styled(Card)`
-  min-width: 315px;
-  max-width: 315px;
+  min-width: 380px;
+  max-width: 100%;
   cursor: pointer;
 
   &:hover {
@@ -57,6 +59,8 @@ type Props = {
 };
 
 const ApartmentCard = ({ apartment }: Props) => {
+  const router = useRouter();
+
   return (
     <StyledCard key={apartment.user_id}>
       <CardMedia sx={{ height: 165 }} image={apartment.picture_url} title='apartment image' />
@@ -74,7 +78,7 @@ const ApartmentCard = ({ apartment }: Props) => {
         </StyledTopRow>
         <Typography>{apartment.apartment_price}</Typography>
         <StyledBottomWrapper>
-          <ArrowForwardIcon />
+          {router.pathname === '/hostie' ? <PencilMisc /> : <ArrowForwardIcon />}
         </StyledBottomWrapper>
       </CardContent>
     </StyledCard>
