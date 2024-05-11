@@ -8,6 +8,7 @@ import MoreInformation from '@/components/Register/MoreInformation';
 enum SignUpStepsEnum {
   PERSONAL_DATA = 'PERSONAL_DATA',
   MORE_INFORMATION = 'MORE_INFORMATION',
+  ROOM_DATA = 'ROOM_DATA',
 }
 
 type SignUpSteps = SignUpStepsEnum[];
@@ -17,6 +18,7 @@ export const SIGN_UP_STEPS: SignUpSteps = [...Object.values(SignUpStepsEnum)];
 const StepComponents: { [k in SignUpStepsEnum]: React.ComponentType<StepHandlerProps> } = {
   [SignUpStepsEnum.PERSONAL_DATA]: () => <PersonalData />,
   [SignUpStepsEnum.MORE_INFORMATION]: () => <MoreInformation />,
+  [SignUpStepsEnum.ROOM_DATA]: () => <PersonalData />,
 };
 
 type StepHandlerProps = {

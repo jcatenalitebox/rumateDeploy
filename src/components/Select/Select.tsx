@@ -1,23 +1,26 @@
-import { styled, Select as MUISelect, AccordionDetails, MenuItem, SelectChangeEvent } from '@mui/material';
+import { transientOptions } from '@/utils/transientOptions';
+import { styled, Select as MUISelect, MenuItem, SelectChangeEvent, InputLabel, FormControl } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 
+const StyledInputLabel = styled(InputLabel)``;
+
+const StyledDropdown = styled(MUISelect, transientOptions)<{ $isHalfWidth?: boolean }>`
+  width: ${({ $isHalfWidth }) => ($isHalfWidth ? '50%' : '100%')};
+
+  .MuiSelect-select {
+    align-items: center;
+  }
+`;
+
 type Props = {
+  className?: string;
   label: string;
   name: string;
   options: { id: string; label: string }[];
+  isHalfWidth?: boolean;
 };
 
-const StyledAccordionDetails = styled(AccordionDetails)`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const StyledDropdown = styled(MUISelect)`
-  width: 100%;
-`;
-
-const Select = ({ options, name }: Props) => {
+const Select = ({ className, label, options, name, isHalfWidth }: Props) => {
   const { setValue } = useFormContext();
 
   const handleDropdown = (event: SelectChangeEvent<unknown>) => {
@@ -25,16 +28,23 @@ const Select = ({ options, name }: Props) => {
   };
 
   return (
-    <StyledAccordionDetails>
-      <StyledDropdown onChange={(ds) => handleDropdown(ds)}>
-        <MenuItem value='All'>All</MenuItem>
+    <FormControl>
+      <StyledInputLabel>{label}</StyledInputLabel>
+      <StyledDropdown
+        className={className}
+        onChange={handleDropdown}
+        size='small'
+        $isHalfWidth={isHalfWidth}
+        label={label}
+        // input={<OutlinedInput label={label} name={name} id={name} />}
+      >
         {options.map((option) => (
           <MenuItem key={option.id} value={option.label}>
             {option.label}
           </MenuItem>
         ))}
       </StyledDropdown>
-    </StyledAccordionDetails>
+    </FormControl>
   );
 };
 
