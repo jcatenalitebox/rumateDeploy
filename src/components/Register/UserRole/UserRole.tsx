@@ -29,6 +29,7 @@ const StyledWrapper = styled(motion.div)`
 const StyledCardWrapper = styled('div')`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
   width: 100%;
 `;
@@ -37,6 +38,7 @@ const StyledCard = styled(Card)`
   gap: 20px;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.2);
+  max-width: 343px;
 `;
 
 const StyledCardContent = styled(CardContent)`
