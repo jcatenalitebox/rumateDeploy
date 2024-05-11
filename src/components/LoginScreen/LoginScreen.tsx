@@ -112,7 +112,7 @@ const LoginScreen = () => {
           <Typography variant='subtitle1' lineHeight='20px'>
             ¿No tenes cuenta?
           </Typography>
-          <StyledLink href='/signup'>
+          <StyledLink href='/sign-up'>
             <StyledSignUpText variant='h4'>Registrate</StyledSignUpText>
           </StyledLink>
         </StyledSignUpWrapper>
