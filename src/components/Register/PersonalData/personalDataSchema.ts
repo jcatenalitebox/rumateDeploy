@@ -192,7 +192,7 @@ const personalDataSchema = yup.object().shape({
     email: yup.string().required('El email es requerido').email('El email no es válido'),
     password: yup.string().min(7, 'Minimo 7 caracteres').required('La contraseña es requerida'),
     // repeatPassword: yup.string().required('El género es requerido'),
-    birthDate: yup.string().required('La ocupación es requerida'),
+    // birthDate: yup.string().required('La ocupación es requerida'),
     state: yup.string().required('Este campo es obligatorio'),
     city: yup.string().required('Este campo es obligatorio'),
     // cp: yup.string().required('Este campo es obligatorio'),

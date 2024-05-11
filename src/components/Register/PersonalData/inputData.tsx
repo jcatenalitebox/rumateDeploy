@@ -3,7 +3,7 @@ export enum InputEnum {
   NUMBER = 'NUMBER',
   DROPDOWN = 'DROPDOWN',
   MULTI_SELECT = 'MULTI_SELECT',
-  DATE = 'DATE',
+  // DATE = 'DATE',
 }
 
 export type InputType = {
@@ -48,13 +48,13 @@ export const PERSONAL_DATA_INPUTS: InputType[] = [
   //   placeholder: 'Contraseña',
   //   isRequired: true,
   // },
-  {
-    label: 'Fecha de nacimiento',
-    id: 'birthDate',
-    type: InputEnum.DATE,
-    placeholder: 'Fecha de nacimiento',
-    isRequired: true,
-  },
+  // {
+  //   label: 'Fecha de nacimiento',
+  //   id: 'birthDate',
+  //   type: InputEnum.DATE,
+  //   placeholder: 'Fecha de nacimiento',
+  //   isRequired: true,
+  // },
   {
     label: 'Provincia',
     id: 'state',

@@ -19,7 +19,7 @@ export type PersonalData = {
     email: string;
     password: string;
     // repeatPassword: string;
-    birthDate: string;
+    // birthDate: string;
     state: string;
     city: string;
     // cp: string;

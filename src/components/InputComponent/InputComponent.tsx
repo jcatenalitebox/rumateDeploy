@@ -47,7 +47,7 @@ const InputComponent = ({ id, label, type, options, baseName, isHalfWidth, depen
       ),
       [InputEnum.DROPDOWN]: options && <Select label={label} name={name} options={options} isHalfWidth={isHalfWidth} />,
       [InputEnum.MULTI_SELECT]: options && <MultipleSelector name={name} options={options} />,
-      [InputEnum.DATE]: <Input name={name} type='date' isHalfWidth={isHalfWidth} />,
+      // [InputEnum.DATE]: <Input name={name} type='date' isHalfWidth={isHalfWidth} />,
     };
   }, [id, isHalfWidth, label, name, options]);
 
