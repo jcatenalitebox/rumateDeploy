@@ -103,7 +103,7 @@ const HostieForm = ({ signUpBaseNameForm }: Props) => {
 
   return (
     <FormProvider {...form}>
-      <MobileHeader title={userRole === UserRoleEnum.HOSTIE ? 'Hostie' : 'Rumie'} onClickBack={prevStep} />
+      <MobileHeader title={userRole === UserRoleEnum.HOSTIE ? 'Hostie' : 'Rumie'} onClickLeftComponent={prevStep} />
       <StyledStepper activeStep={currentStepIndex}>
         {steps.map((label) => (
           <StyledStep key={label}>

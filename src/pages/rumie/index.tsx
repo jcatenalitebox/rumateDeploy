@@ -9,6 +9,7 @@ import theme from '@/theme';
 import RumieEmptyState from '@/components/Common/RumieEmptyState';
 import { useEffect } from 'react';
 import { getUserByEmail, searchForCoincidences } from '../../../lib/firebase/actions';
+import { useMemo, useState } from 'react';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -36,33 +37,31 @@ const StyledResultsText = styled(Typography)`
 `;
 
 function RumiePage() {
-  // const [search, setSearch] = useState([] as string[]);
+  const [search, setSearch] = useState('');
   // const [city, setCity] = useState('All' as string);
 
   // const cities = Array.from(new Set(APARTMENTS_DATA.map((apartment) => apartment.city)) as Set<string>);
 
-  // const handleSearch = (values: string[]) => {
-  //   setSearch(values);
-  // };
+  const handleSearch = (value: string) => {
+    setSearch(value);
+  };
 
   // const handleDropdown = (event: any) => {
   //   setCity(event.target.value);
   // };
 
-  // const filteredItems = useMemo(() => {
-  //   if (search.length === 0 && city === 'All') return APARTMENTS_DATA;
+  const filteredItems = useMemo(() => {
+    if (search === '') return APARTMENTS_DATA;
 
-  //   const filteredData = APARTMENTS_DATA.filter((apartment) => {
-  //     const stylizedCity = apartment.city.toUpperCase();
+    const filteredData = APARTMENTS_DATA.filter((apartment) => {
+      const stylizedState = apartment.state.toUpperCase();
+      const stylizedCity = apartment.city.toUpperCase();
 
-  //     return (
-  //       (city === 'All' || apartment.city === city) &&
-  //       (search.length === 0 || search.some((value) => stylizedCity.includes(value.toUpperCase())))
-  //     );
-  //   });
+      return stylizedState.includes(search.toUpperCase()) || stylizedCity.includes(search.toUpperCase());
+    });
 
-  //   return filteredData;
-  // }, [search, city]);
+    return filteredData;
+  }, [search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,11 +94,12 @@ function RumiePage() {
               </InputAdornment>
             ),
           }}
+          onChange={(e) => handleSearch(e.target.value)}
         />
         <StyledResultsText variant='h4'>Resultados: 0</StyledResultsText>
       </StyledInputWrapper>
       {APARTMENTS_DATA.length > 0 ? (
-        APARTMENTS_DATA.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
+        filteredItems.map((apartment) => <ApartmentCard key={apartment.user_id} apartment={apartment} />)
       ) : (
         <RumieEmptyState />
       )}
